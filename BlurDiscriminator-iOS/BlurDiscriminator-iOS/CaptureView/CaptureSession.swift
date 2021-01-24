@@ -24,6 +24,10 @@ class CaptureSession: NSObject {
         self.devicePosition = devicePosition
         
         super.init()
+        
+        self.configurationQueue.async {
+            self.configureSession()
+        }
     }
     
     func configureSession() {
