@@ -8,22 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		DE0E8AE825BC091400D65C7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0E8AE725BC091400D65C7A /* AppDelegate.swift */; };
-		DE0E8AEA25BC091400D65C7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0E8AE925BC091400D65C7A /* SceneDelegate.swift */; };
 		DE0E8AEC25BC091400D65C7A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0E8AEB25BC091400D65C7A /* ViewController.swift */; };
 		DE0E8AEF25BC091400D65C7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE0E8AED25BC091400D65C7A /* Main.storyboard */; };
 		DE0E8AF125BC091700D65C7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE0E8AF025BC091700D65C7A /* Assets.xcassets */; };
 		DE0E8AF425BC091700D65C7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE0E8AF225BC091700D65C7A /* LaunchScreen.storyboard */; };
+		DE0E8AFD25BC0BBC00D65C7A /* BlurDiscriminator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0E8AFC25BC0BBC00D65C7A /* BlurDiscriminator.swift */; };
+		DE0E8B0225BC6A3B00D65C7A /* MTLComputeCommandEncoder+encodeThreadgroupSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0E8B0125BC6A3B00D65C7A /* MTLComputeCommandEncoder+encodeThreadgroupSize.swift */; };
+		DE0E8B0625BC6AB900D65C7A /* ShaderFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0E8B0525BC6AB900D65C7A /* ShaderFunctions.swift */; };
+		DE0E8B0C25BC6F0500D65C7A /* BlurDiscriminatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0E8B0B25BC6F0500D65C7A /* BlurDiscriminatorError.swift */; };
+		DEC70F0625BD5816003D8944 /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC70F0525BD5816003D8944 /* CaptureSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DE0E8AE425BC091400D65C7A /* BlurDiscriminator-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BlurDiscriminator-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0E8AE725BC091400D65C7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DE0E8AE925BC091400D65C7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DE0E8AEB25BC091400D65C7A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DE0E8AEE25BC091400D65C7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DE0E8AF025BC091700D65C7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE0E8AF325BC091700D65C7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE0E8AF525BC091700D65C7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE0E8AFC25BC0BBC00D65C7A /* BlurDiscriminator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDiscriminator.swift; sourceTree = "<group>"; };
+		DE0E8B0125BC6A3B00D65C7A /* MTLComputeCommandEncoder+encodeThreadgroupSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MTLComputeCommandEncoder+encodeThreadgroupSize.swift"; sourceTree = "<group>"; };
+		DE0E8B0525BC6AB900D65C7A /* ShaderFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderFunctions.swift; sourceTree = "<group>"; };
+		DE0E8B0B25BC6F0500D65C7A /* BlurDiscriminatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorError.swift; sourceTree = "<group>"; };
+		DEC70F0525BD5816003D8944 /* CaptureSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,35 @@
 		DE0E8AE625BC091400D65C7A /* BlurDiscriminator-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DEC70F0425BD5433003D8944 /* CaptureView */,
+				DE0E8B0025BC6A0700D65C7A /* BlurDiscriminator */,
 				DE0E8AE725BC091400D65C7A /* AppDelegate.swift */,
-				DE0E8AE925BC091400D65C7A /* SceneDelegate.swift */,
-				DE0E8AEB25BC091400D65C7A /* ViewController.swift */,
-				DE0E8AED25BC091400D65C7A /* Main.storyboard */,
-				DE0E8AF025BC091700D65C7A /* Assets.xcassets */,
 				DE0E8AF225BC091700D65C7A /* LaunchScreen.storyboard */,
+				DE0E8AF025BC091700D65C7A /* Assets.xcassets */,
 				DE0E8AF525BC091700D65C7A /* Info.plist */,
 			);
 			path = "BlurDiscriminator-iOS";
+			sourceTree = "<group>";
+		};
+		DE0E8B0025BC6A0700D65C7A /* BlurDiscriminator */ = {
+			isa = PBXGroup;
+			children = (
+				DE0E8AFC25BC0BBC00D65C7A /* BlurDiscriminator.swift */,
+				DE0E8B0B25BC6F0500D65C7A /* BlurDiscriminatorError.swift */,
+				DE0E8B0125BC6A3B00D65C7A /* MTLComputeCommandEncoder+encodeThreadgroupSize.swift */,
+				DE0E8B0525BC6AB900D65C7A /* ShaderFunctions.swift */,
+			);
+			path = BlurDiscriminator;
+			sourceTree = "<group>";
+		};
+		DEC70F0425BD5433003D8944 /* CaptureView */ = {
+			isa = PBXGroup;
+			children = (
+				DE0E8AED25BC091400D65C7A /* Main.storyboard */,
+				DE0E8AEB25BC091400D65C7A /* ViewController.swift */,
+				DEC70F0525BD5816003D8944 /* CaptureSession.swift */,
+			);
+			path = CaptureView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +165,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE0E8B0625BC6AB900D65C7A /* ShaderFunctions.swift in Sources */,
 				DE0E8AEC25BC091400D65C7A /* ViewController.swift in Sources */,
 				DE0E8AE825BC091400D65C7A /* AppDelegate.swift in Sources */,
-				DE0E8AEA25BC091400D65C7A /* SceneDelegate.swift in Sources */,
+				DE0E8B0225BC6A3B00D65C7A /* MTLComputeCommandEncoder+encodeThreadgroupSize.swift in Sources */,
+				DE0E8B0C25BC6F0500D65C7A /* BlurDiscriminatorError.swift in Sources */,
+				DEC70F0625BD5816003D8944 /* CaptureSession.swift in Sources */,
+				DE0E8AFD25BC0BBC00D65C7A /* BlurDiscriminator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +321,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHMWTHTL9L;
 				INFOPLIST_FILE = "BlurDiscriminator-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -308,6 +341,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHMWTHTL9L;
 				INFOPLIST_FILE = "BlurDiscriminator-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
