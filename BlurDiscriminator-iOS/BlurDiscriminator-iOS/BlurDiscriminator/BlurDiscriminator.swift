@@ -74,13 +74,18 @@ class BlurDiscriminator {
         commandEncoder.endEncoding()
 
         let laplacian = MPSImageLaplacian(device: self.mtlDevice)
-        let laplacianImage = MPSTemporaryImage(commandBuffer: commandBuffer, imageDescriptor: imageDescriptor)
-        laplacian.encode(commandBuffer: commandBuffer, sourceImage: grayscaledImage, destinationImage: laplacianImage)
+        let laplacianImage = MPSTemporaryImage(commandBuffer: commandBuffer,
+                                               imageDescriptor: imageDescriptor)
+        laplacian.encode(commandBuffer: commandBuffer,
+                         sourceImage: grayscaledImage,
+                         destinationImage: laplacianImage)
 
         let imageStatisticsMeanAndVariance = MPSImageStatisticsMeanAndVariance(device: self.mtlDevice)
         let varianceDescriptor = MPSImageDescriptor(channelFormat: .float32, width: 2, height: 1, featureChannels: 1)
         let statisticsImage = MPSImage(device: self.mtlDevice, imageDescriptor: varianceDescriptor)
-        imageStatisticsMeanAndVariance.encode(commandBuffer: commandBuffer, sourceImage: laplacianImage, destinationImage: statisticsImage)
+        imageStatisticsMeanAndVariance.encode(commandBuffer: commandBuffer,
+                                              sourceImage: laplacianImage,
+                                              destinationImage: statisticsImage)
 
         commandBuffer.commit()
         commandBuffer.waitUntilCompleted()
