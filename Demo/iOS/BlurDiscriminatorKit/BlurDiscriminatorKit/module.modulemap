@@ -1,0 +1,8 @@
+framework module BlurDiscriminatorKit {
+    export *
+    
+    explicit module Private {
+        umbrella header "InterpreterWrapper.h"
+        export *
+    }
+}
