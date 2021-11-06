@@ -13,9 +13,10 @@
 - __Demo__<br />
 : Simple iOS Demo Project.
 
-<img src="https://user-images.githubusercontent.com/17686601/140615200-7863ae9f-bcd7-433f-ab3a-317af9bdd530.jpg" width="35%"/>
-<img src="https://user-images.githubusercontent.com/17686601/140615206-3cb485d0-ee1c-41d7-9b27-15279cb0c612.jpg" width="35%"/>
-<br />
+<div class="images-container">
+  <img src="https://user-images.githubusercontent.com/17686601/140615200-7863ae9f-bcd7-433f-ab3a-317af9bdd530.jpg" width="35%"/>
+  <img src="https://user-images.githubusercontent.com/17686601/140615206-3cb485d0-ee1c-41d7-9b27-15279cb0c612.jpg" width="35%"/>
+</div>
 <br />
 
 - __BlurDiscriminatorKit__<br />
