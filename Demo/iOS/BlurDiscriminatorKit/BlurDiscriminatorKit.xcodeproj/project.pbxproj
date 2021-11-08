@@ -3,10 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */; };
+		DE90DBBE2737B43F0048E41B /* BlurDiscriminatorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */; platformFilter = ios; };
+		DE90DBC92737BB9A0048E41B /* image_f264_horizontal_fliped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC52737BB9A0048E41B /* image_f264_horizontal_fliped.jpg */; };
+		DE90DBCA2737BB9A0048E41B /* image_f67_origin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC62737BB9A0048E41B /* image_f67_origin.jpg */; };
+		DE90DBCB2737BB9A0048E41B /* blur_segmentation_quantized.tflite in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC72737BB9A0048E41B /* blur_segmentation_quantized.tflite */; };
+		DE90DBCC2737BB9A0048E41B /* image_f477_origin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC82737BB9A0048E41B /* image_f477_origin.jpg */; };
 		DEEA0E812732F3A90060812D /* BlurDiscriminatorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E7F2732F3A90060812D /* BlurDiscriminatorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEEA11DB2732F4420060812D /* InterpreterWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E882732F43E0060812D /* InterpreterWrapper.mm */; };
 		DEEA11DC2732F4420060812D /* InterpreterWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E892732F43E0060812D /* InterpreterWrapper.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -732,7 +738,24 @@
 		DEEA14AC2732F4440060812D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA11DA2732F4420060812D /* Constants.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DE90DBBF2737B43F0048E41B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEEA0E732732F3A90060812D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEEA0E7B2732F3A90060812D;
+			remoteInfo = BlurDiscriminatorKit;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		DE90DBB92737B43E0048E41B /* BlurDiscriminatorKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlurDiscriminatorKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorKitTests.swift; sourceTree = "<group>"; };
+		DE90DBBD2737B43F0048E41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE90DBC52737BB9A0048E41B /* image_f264_horizontal_fliped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_f264_horizontal_fliped.jpg; sourceTree = "<group>"; };
+		DE90DBC62737BB9A0048E41B /* image_f67_origin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_f67_origin.jpg; sourceTree = "<group>"; };
+		DE90DBC72737BB9A0048E41B /* blur_segmentation_quantized.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = blur_segmentation_quantized.tflite; sourceTree = "<group>"; };
+		DE90DBC82737BB9A0048E41B /* image_f477_origin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_f477_origin.jpg; sourceTree = "<group>"; };
 		DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlurDiscriminatorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEA0E7F2732F3A90060812D /* BlurDiscriminatorKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlurDiscriminatorKit.h; sourceTree = "<group>"; };
 		DEEA0E802732F3A90060812D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1462,6 +1485,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DE90DBB62737B43E0048E41B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE90DBBE2737B43F0048E41B /* BlurDiscriminatorKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEEA0E792732F3A90060812D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1473,10 +1504,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE90DBBA2737B43F0048E41B /* BlurDiscriminatorKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				DE90DBC42737BA230048E41B /* resources */,
+				DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */,
+				DE90DBBD2737B43F0048E41B /* Info.plist */,
+			);
+			path = BlurDiscriminatorKitTests;
+			sourceTree = "<group>";
+		};
+		DE90DBC42737BA230048E41B /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				DE90DBC72737BB9A0048E41B /* blur_segmentation_quantized.tflite */,
+				DE90DBC62737BB9A0048E41B /* image_f67_origin.jpg */,
+				DE90DBC52737BB9A0048E41B /* image_f264_horizontal_fliped.jpg */,
+				DE90DBC82737BB9A0048E41B /* image_f477_origin.jpg */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 		DEEA0E722732F3A90060812D = {
 			isa = PBXGroup;
 			children = (
 				DEEA0E7E2732F3A90060812D /* BlurDiscriminatorKit */,
+				DE90DBBA2737B43F0048E41B /* BlurDiscriminatorKitTests */,
 				DEEA0E7D2732F3A90060812D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1485,6 +1538,7 @@
 			isa = PBXGroup;
 			children = (
 				DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */,
+				DE90DBB92737B43E0048E41B /* BlurDiscriminatorKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3947,6 +4001,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		DE90DBB82737B43E0048E41B /* BlurDiscriminatorKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE90DBC32737B43F0048E41B /* Build configuration list for PBXNativeTarget "BlurDiscriminatorKitTests" */;
+			buildPhases = (
+				DE90DBB52737B43E0048E41B /* Sources */,
+				DE90DBB62737B43E0048E41B /* Frameworks */,
+				DE90DBB72737B43E0048E41B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE90DBC02737B43F0048E41B /* PBXTargetDependency */,
+			);
+			name = BlurDiscriminatorKitTests;
+			productName = BlurDiscriminatorKitTests;
+			productReference = DE90DBB92737B43E0048E41B /* BlurDiscriminatorKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DEEA0E7B2732F3A90060812D /* BlurDiscriminatorKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEEA0E842732F3A90060812D /* Build configuration list for PBXNativeTarget "BlurDiscriminatorKit" */;
@@ -3971,8 +4043,12 @@
 		DEEA0E732732F3A90060812D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					DE90DBB82737B43E0048E41B = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
 					DEEA0E7B2732F3A90060812D = {
 						CreatedOnToolsVersion = 12.5.1;
 						LastSwiftMigration = 1250;
@@ -3993,11 +4069,23 @@
 			projectRoot = "";
 			targets = (
 				DEEA0E7B2732F3A90060812D /* BlurDiscriminatorKit */,
+				DE90DBB82737B43E0048E41B /* BlurDiscriminatorKitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DE90DBB72737B43E0048E41B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE90DBC92737BB9A0048E41B /* image_f264_horizontal_fliped.jpg in Resources */,
+				DE90DBCC2737BB9A0048E41B /* image_f477_origin.jpg in Resources */,
+				DE90DBCB2737BB9A0048E41B /* blur_segmentation_quantized.tflite in Resources */,
+				DE90DBCA2737BB9A0048E41B /* image_f67_origin.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEEA0E7A2732F3A90060812D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4038,6 +4126,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DE90DBB52737B43E0048E41B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEEA0E782732F3A90060812D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4058,7 +4154,54 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		DE90DBC02737B43F0048E41B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = DEEA0E7B2732F3A90060812D /* BlurDiscriminatorKit */;
+			targetProxy = DE90DBBF2737B43F0048E41B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		DE90DBC12737B43F0048E41B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NHMWTHTL9L;
+				INFOPLIST_FILE = BlurDiscriminatorKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = syjdev.BlurDiscriminatorKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DE90DBC22737B43F0048E41B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NHMWTHTL9L;
+				INFOPLIST_FILE = BlurDiscriminatorKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = syjdev.BlurDiscriminatorKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		DEEA0E822732F3A90060812D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4255,6 +4398,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DE90DBC32737B43F0048E41B /* Build configuration list for PBXNativeTarget "BlurDiscriminatorKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE90DBC12737B43F0048E41B /* Debug */,
+				DE90DBC22737B43F0048E41B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DEEA0E762732F3A90060812D /* Build configuration list for PBXProject "BlurDiscriminatorKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
