@@ -29,8 +29,10 @@
 - __build BlurDiscriminatorKit.xcframework__
 1) in `./BlurDiscriminatorKit`, execute `sh build_blurDiscriminator.sh` in terminal.
 2) after building BlurDiscriminatorKit.xcframework, BlurDiscriminatorKit.xcframework will be generated in `./BlurDiscriminatorKit/built_xcframework`
+
 <br/>
 <br/>
+
 - __add BlurDiscriminatorKit.xcframework in Xcode Project.__
 
 1) add BlurDiscriminatorKit.xcframework in `Embed Frameworks` and TFLite model.
