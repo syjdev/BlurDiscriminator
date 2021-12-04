@@ -43,4 +43,4 @@
 
 <img src="https://user-images.githubusercontent.com/17686601/144718182-e8fb1ca8-0377-4967-af8c-4f0d0113226f.png" width="70%"/><br />
 
-You can download a model, [model directory](https://github.com/syjdev/BlurDiscriminator/tree/feature/master/model).
+You can download a model, [model directory](https://github.com/syjdev/BlurDiscriminator/tree/master/model).
