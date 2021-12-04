@@ -24,4 +24,18 @@
 
 # Usage
 
-: will be updated.
+- __build BlurDiscriminatorKit.xcframework__
+1) in `./BlurDiscriminatorKit`, execute `sh build_blurDiscriminator.sh` in terminal.
+2) after building BlurDiscriminatorKit.xcframework, BlurDiscriminatorKit.xcframework will be generated in `./BlurDiscriminatorKit/built_xcframework`
+
+- __add BlurDiscriminatorKit.xcframework in Xcode Project.__
+
+1) add BlurDiscriminatorKit.xcframework in `Embed Frameworks` and TFLite model.
+
+<img src="https://user-images.githubusercontent.com/17686601/144717621-8c6fdde5-5291-4225-a51c-78d3be0da8b9.png" width="70%"/><br />
+
+2) When you initialize a BlurDiscriminator, You have to pass the path that specify model location. In my case, I locate the model in App main bundle.
+
+<img src="https://user-images.githubusercontent.com/17686601/144718182-e8fb1ca8-0377-4967-af8c-4f0d0113226f.png" width="70%"/><br />
+
+You can download a model, [model directory](model).
