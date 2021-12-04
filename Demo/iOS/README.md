@@ -22,12 +22,15 @@
 - __BlurDiscriminatorKit__<br />
 : Deep-Learning Based Framework. For inference image, use a TFLite(libtensorflow-lite.a, static library).
 
+<br/>
+
 # Usage
 
 - __build BlurDiscriminatorKit.xcframework__
 1) in `./BlurDiscriminatorKit`, execute `sh build_blurDiscriminator.sh` in terminal.
 2) after building BlurDiscriminatorKit.xcframework, BlurDiscriminatorKit.xcframework will be generated in `./BlurDiscriminatorKit/built_xcframework`
-
+<br/>
+<br/>
 - __add BlurDiscriminatorKit.xcframework in Xcode Project.__
 
 1) add BlurDiscriminatorKit.xcframework in `Embed Frameworks` and TFLite model.
@@ -38,4 +41,4 @@
 
 <img src="https://user-images.githubusercontent.com/17686601/144718182-e8fb1ca8-0377-4967-af8c-4f0d0113226f.png" width="70%"/><br />
 
-You can download a model, [model directory](model).
+You can download a model, [model directory](https://github.com/syjdev/BlurDiscriminator/tree/feature/master/model).
