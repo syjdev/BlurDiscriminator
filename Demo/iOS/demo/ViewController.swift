@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
 
     @IBAction func didClickRunButton(_ sender: UIButton) {
-        let selectedImageName = self.imageNames[Int.random(in: 0..<4)]
+        let selectedImageName = self.imageNames[Int.random(in: 0..<5)]
         
         guard let originImage = UIImage(named: selectedImageName) else {
             fatalError("couldn't find the image.")

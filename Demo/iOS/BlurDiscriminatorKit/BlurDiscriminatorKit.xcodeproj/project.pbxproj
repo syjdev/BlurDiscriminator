@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE02C86029EDD68500FD93D2 /* libtensorflow-lite.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE02C85C29EDCAF900FD93D2 /* libtensorflow-lite.xcframework */; };
 		DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */; };
 		DE90DBBE2737B43F0048E41B /* BlurDiscriminatorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */; platformFilter = ios; };
 		DE90DBC92737BB9A0048E41B /* image_f264_horizontal_fliped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC52737BB9A0048E41B /* image_f264_horizontal_fliped.jpg */; };
@@ -19,7 +20,6 @@
 		DEEA11DD2732F4420060812D /* CVPixelBuffer+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E8B2732F43E0060812D /* CVPixelBuffer+Data.swift */; };
 		DEEA11DE2732F4420060812D /* CGImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E8C2732F43E0060812D /* CGImage+resize.swift */; };
 		DEEA11DF2732F4430060812D /* CGImage+makePixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E8D2732F43E0060812D /* CGImage+makePixelBuffer.swift */; };
-		DEEA11E02732F4430060812D /* libtensorflow-lite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA0E8F2732F43E0060812D /* libtensorflow-lite.a */; };
 		DEEA11E12732F4430060812D /* micro_interpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E932732F43E0060812D /* micro_interpreter.h */; };
 		DEEA11E22732F4430060812D /* compatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E942732F43E0060812D /* compatibility.h */; };
 		DEEA11E32732F4430060812D /* kernel_runner.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E982732F43E0060812D /* kernel_runner.h */; };
@@ -715,6 +715,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE02C85C29EDCAF900FD93D2 /* libtensorflow-lite.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "libtensorflow-lite.xcframework"; sourceTree = "<group>"; };
 		DE90DBB92737B43E0048E41B /* BlurDiscriminatorKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlurDiscriminatorKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorKitTests.swift; sourceTree = "<group>"; };
 		DE90DBBD2737B43F0048E41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -730,7 +731,6 @@
 		DEEA0E8B2732F43E0060812D /* CVPixelBuffer+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Data.swift"; sourceTree = "<group>"; };
 		DEEA0E8C2732F43E0060812D /* CGImage+resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+resize.swift"; sourceTree = "<group>"; };
 		DEEA0E8D2732F43E0060812D /* CGImage+makePixelBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+makePixelBuffer.swift"; sourceTree = "<group>"; };
-		DEEA0E8F2732F43E0060812D /* libtensorflow-lite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libtensorflow-lite.a"; sourceTree = "<group>"; };
 		DEEA0E932732F43E0060812D /* micro_interpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = micro_interpreter.h; sourceTree = "<group>"; };
 		DEEA0E942732F43E0060812D /* compatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compatibility.h; sourceTree = "<group>"; };
 		DEEA0E982732F43E0060812D /* kernel_runner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kernel_runner.h; sourceTree = "<group>"; };
@@ -1429,13 +1429,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEEA11E02732F4430060812D /* libtensorflow-lite.a in Frameworks */,
+				DE02C86029EDD68500FD93D2 /* libtensorflow-lite.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE02C85E29EDD0FE00FD93D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DE90DBBA2737B43F0048E41B /* BlurDiscriminatorKitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1463,6 +1470,7 @@
 				DEEA0E7E2732F3A90060812D /* BlurDiscriminatorKit */,
 				DE90DBBA2737B43F0048E41B /* BlurDiscriminatorKitTests */,
 				DEEA0E7D2732F3A90060812D /* Products */,
+				DE02C85E29EDD0FE00FD93D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1517,7 +1525,7 @@
 		DEEA0E8E2732F43E0060812D /* externals */ = {
 			isa = PBXGroup;
 			children = (
-				DEEA0E8F2732F43E0060812D /* libtensorflow-lite.a */,
+				DE02C85C29EDCAF900FD93D2 /* libtensorflow-lite.xcframework */,
 				DEEA0E902732F43E0060812D /* tensorflow */,
 				DEEA11C42732F4420060812D /* flatbuffers */,
 			);
@@ -4027,7 +4035,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/BlurDiscriminatorKit/externals";
 				INFOPLIST_FILE = BlurDiscriminatorKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -4044,6 +4051,7 @@
 				MACH_O_TYPE = mh_dylib;
 				MARKETING_VERSION = 0.0;
 				MODULEMAP_FILE = "${SRCROOT}/BlurDiscriminatorKit/module.modulemap";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = syjdev.BlurDiscriminatorKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -4066,7 +4074,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				HEADER_SEARCH_PATHS = "${SRCROOT}/BlurDiscriminatorKit/externals";
 				INFOPLIST_FILE = BlurDiscriminatorKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
