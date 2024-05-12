@@ -23,7 +23,7 @@ extension CVPixelBuffer {
         let height = CVPixelBufferGetHeight(self)
         let sourceBytesPerRow = CVPixelBufferGetBytesPerRow(self)
         let destinationChannelCount = 3
-        let destinationBytesPerRow = destinationChannelCount * width
+        let destinationBytesPerRow = width * destinationChannelCount * MemoryLayout<Float>.size
         
         var sourceBuffer = vImage_Buffer(data: sourceData,
                                          height: vImagePixelCount(height),

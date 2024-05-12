@@ -12,6 +12,7 @@ import CoreGraphics
 public final class BlurObservation {
     public let blurMap: CGImage
     public let grayscaledPixels: [UInt8]
+    public let data: Data
     public lazy var blurRatio: Float = {
         let numberOfBlur: Float = grayscaledPixels.reduce(into: 0) { result, element in
             if element > 127 {
@@ -23,8 +24,10 @@ public final class BlurObservation {
     }()
     
     internal init(blurMap: CGImage,
-                  grayscaledPixels: [UInt8]) {
+                  grayscaledPixels: [UInt8],
+                  data: Data = Data()) {
         self.blurMap = blurMap
         self.grayscaledPixels = grayscaledPixels
+        self.data = data
     }
 }

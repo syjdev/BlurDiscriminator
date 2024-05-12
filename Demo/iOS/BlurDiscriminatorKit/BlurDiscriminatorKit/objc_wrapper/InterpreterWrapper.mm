@@ -10,7 +10,7 @@
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
 #include "tensorflow/lite/model.h"
-
+#include <algorithm>
 
 @interface InterpreterWrapper ()
 
@@ -40,17 +40,45 @@
 }
 
 
+//- (NSData * __nonnull)interpretWithInputData:(NSData * __nonnull)inputData {
+//    _interpreter->AllocateTensors();
+//    
+//    auto* input = _interpreter->typed_input_tensor<UInt8>(0);
+//    UInt8 inputBuffer[inputData.length];
+//    [inputData getBytes:inputBuffer length:inputData.length];
+//    std::memcpy(input, inputBuffer, inputData.length);
+//    _interpreter->Invoke();
+//    auto outputBuffer = _interpreter->typed_output_tensor<UInt8>(0);
+//    
+//    return [NSData dataWithBytes:outputBuffer length:inputData.length];
+//}
+
 - (NSData * __nonnull)interpretWithInputData:(NSData * __nonnull)inputData {
     _interpreter->AllocateTensors();
     
-    auto* input = _interpreter->typed_input_tensor<UInt8>(0);
-    UInt8 inputBuffer[inputData.length];
+    auto* input = _interpreter->typed_input_tensor<float>(0);
+    
+    // inputData는 총 602112 bytes
+    // 602112 / 4 = 150528
+    // 602112 / (224 * 224) = 12
+    // 224 * 224 = 50176
+    
+    float inputBuffer[inputData.length / sizeof(float)];
     [inputData getBytes:inputBuffer length:inputData.length];
     std::memcpy(input, inputBuffer, inputData.length);
     _interpreter->Invoke();
-    auto outputBuffer = _interpreter->typed_output_tensor<UInt8>(0);
-
-    return [NSData dataWithBytes:outputBuffer length:inputData.length];
+    auto outputBuffer = _interpreter->typed_output_tensor<float>(0);
+    size_t outputSize = _interpreter->tensors_size() * sizeof(float);
+    
+    auto a1 = inputData.length;
+    auto a2 = sizeof(float);
+    
+    return [NSData dataWithBytes:outputBuffer length:200704];
+    
+    // 802816
+    // 802816 / 4 = 200704
+    // 200704 / 4 = 50176
+    // 50176 = 224 x 224
 }
 
 @end
