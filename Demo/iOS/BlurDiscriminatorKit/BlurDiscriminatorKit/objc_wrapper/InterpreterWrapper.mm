@@ -70,9 +70,6 @@
     auto outputBuffer = _interpreter->typed_output_tensor<float>(0);
     size_t outputSize = _interpreter->tensors_size() * sizeof(float);
     
-    auto a1 = inputData.length;
-    auto a2 = sizeof(float);
-    
     return [NSData dataWithBytes:outputBuffer length:200704];
     
     // 802816

@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var outputImageView: UIImageView!
     @IBOutlet weak var elapsedTimeLabel: UILabel!
 //    let imageNames = ["png_image", "png_image", "png_image", "png_image", "png_image", "png_image", "png_image", "png_image"]
-    let imageNames = ["png_image", "flower", "image_f67_origin", "image_f264_horizontal_fliped", "image_f477_origin", "keyboard_image", "penguin", "weeds", "star_cup"]
+    let imageNames = ["png_image", "image_f67_origin", "image_f264_horizontal_fliped", "image_f477_origin", "keyboard_image", "weeds", "star_cup"]
     var blurDiscriminator: BlurDiscriminator!
 
     
@@ -60,13 +60,6 @@ class ViewController: UIViewController {
             exit(1)
         }
 
-        
-        
-        
-        
-        
-        
-        
         guard let resized = cgImage.resizeWithPadding(width: imageWidth, height: imageHeight)
         else {
             fatalError("couldn't make the resized image.")
