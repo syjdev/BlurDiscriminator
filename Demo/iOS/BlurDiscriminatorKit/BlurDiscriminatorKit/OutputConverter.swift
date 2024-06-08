@@ -9,5 +9,5 @@ import Foundation
 
 
 internal protocol OutputConverter: AnyObject {
-    func convert(data: Data) -> BlurObservation?
+    func convert(data: Data, originImageWidth: Int, originImageHeight: Int) -> BlurObservation?
 }

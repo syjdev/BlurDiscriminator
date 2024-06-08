@@ -17,9 +17,7 @@
 		DEEA0E812732F3A90060812D /* BlurDiscriminatorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E7F2732F3A90060812D /* BlurDiscriminatorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEEA11DB2732F4420060812D /* InterpreterWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E882732F43E0060812D /* InterpreterWrapper.mm */; };
 		DEEA11DC2732F4420060812D /* InterpreterWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E892732F43E0060812D /* InterpreterWrapper.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DEEA11DD2732F4420060812D /* CVPixelBuffer+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E8B2732F43E0060812D /* CVPixelBuffer+Data.swift */; };
 		DEEA11DE2732F4420060812D /* CGImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E8C2732F43E0060812D /* CGImage+resize.swift */; };
-		DEEA11DF2732F4430060812D /* CGImage+makePixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E8D2732F43E0060812D /* CGImage+makePixelBuffer.swift */; };
 		DEEA11E12732F4430060812D /* micro_interpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E932732F43E0060812D /* micro_interpreter.h */; };
 		DEEA11E22732F4430060812D /* compatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E942732F43E0060812D /* compatibility.h */; };
 		DEEA11E32732F4430060812D /* kernel_runner.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E982732F43E0060812D /* kernel_runner.h */; };
@@ -728,9 +726,7 @@
 		DEEA0E802732F3A90060812D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEEA0E882732F43E0060812D /* InterpreterWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InterpreterWrapper.mm; sourceTree = "<group>"; };
 		DEEA0E892732F43E0060812D /* InterpreterWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterpreterWrapper.h; sourceTree = "<group>"; };
-		DEEA0E8B2732F43E0060812D /* CVPixelBuffer+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Data.swift"; sourceTree = "<group>"; };
 		DEEA0E8C2732F43E0060812D /* CGImage+resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+resize.swift"; sourceTree = "<group>"; };
-		DEEA0E8D2732F43E0060812D /* CGImage+makePixelBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+makePixelBuffer.swift"; sourceTree = "<group>"; };
 		DEEA0E932732F43E0060812D /* micro_interpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = micro_interpreter.h; sourceTree = "<group>"; };
 		DEEA0E942732F43E0060812D /* compatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compatibility.h; sourceTree = "<group>"; };
 		DEEA0E982732F43E0060812D /* kernel_runner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kernel_runner.h; sourceTree = "<group>"; };
@@ -1515,9 +1511,7 @@
 		DEEA0E8A2732F43E0060812D /* extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DEEA0E8B2732F43E0060812D /* CVPixelBuffer+Data.swift */,
 				DEEA0E8C2732F43E0060812D /* CGImage+resize.swift */,
-				DEEA0E8D2732F43E0060812D /* CGImage+makePixelBuffer.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -3841,8 +3835,6 @@
 				DEEA14A82732F4440060812D /* BlurObservation.swift in Sources */,
 				DEEA14AB2732F4440060812D /* GrayscaleConverter.swift in Sources */,
 				DEEA11DE2732F4420060812D /* CGImage+resize.swift in Sources */,
-				DEEA11DF2732F4430060812D /* CGImage+makePixelBuffer.swift in Sources */,
-				DEEA11DD2732F4420060812D /* CVPixelBuffer+Data.swift in Sources */,
 				DEEA14A62732F4440060812D /* InputConverter.swift in Sources */,
 				DEEA14A92732F4440060812D /* BlurDiscriminator.swift in Sources */,
 			);

@@ -13,32 +13,23 @@ internal final class GrayscaleConverter: OutputConverter {
     private let inputWidth: Int
     private let inputHeight: Int
     private var grayscaleImageFormat: vImage_CGImageFormat
-    
-    
-    let divisor: Int32 = 0x1000
-    private var preBias: [Int16] = [0, 0, 0]
-    private var postBias: Int32 = 0
-    private var coefficientsMatrix: [Int16] = [
-        Int16(0.0722 * 0x1000),  // blue
-        Int16(0.7152 * 0x1000),  // green
-        Int16(0.2126 * 0x1000),  // red
-    ]
-    
+
     internal init(inputWidth: Int, inputHeight: Int) {
         self.inputWidth = inputWidth
         self.inputHeight = inputHeight
         
-        let imageFormat = vImage_CGImageFormat(bitsPerComponent: 8,
-                                               bitsPerPixel: 8,
+        let bitmapInfo = CGBitmapInfo(
+            rawValue: kCGBitmapByteOrder32Host.rawValue |
+            CGBitmapInfo.floatComponents.rawValue)
+        let imageFormat = vImage_CGImageFormat(bitsPerComponent: 32,
+                                               bitsPerPixel: 32,
                                                colorSpace: CGColorSpaceCreateDeviceGray(),
-                                               bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
-                                               renderingIntent: .defaultIntent)
-        
-        guard let imageFormat = imageFormat else { fatalError() }
+                                               bitmapInfo: bitmapInfo)!
+
         self.grayscaleImageFormat = imageFormat
     }
     
-    internal func convert(data: Data) -> BlurObservation? {
+    func convert(data: Data, originImageWidth: Int, originImageHeight: Int) -> BlurObservation? {
         var mutableData = data
 
         let imageBuffer = mutableData.withUnsafeMutableBytes({ (rawBufferPointer) -> vImage_Buffer? in
@@ -51,36 +42,53 @@ internal final class GrayscaleConverter: OutputConverter {
             return sourceBuffer
         })
         
-        guard let imageBuffer = imageBuffer else { return nil }
-        return self.makeBlurObservation(imageBuffer: imageBuffer)
-    }
-
-    internal func makeBlurObservation(imageBuffer: vImage_Buffer) -> BlurObservation? {
-        let bitmapInfo = CGBitmapInfo(
-            rawValue: kCGBitmapByteOrder32Host.rawValue |
-            CGBitmapInfo.floatComponents.rawValue)
-
-        var format = vImage_CGImageFormat(bitsPerComponent: 32,
-                                          bitsPerPixel: 32,
-                                          colorSpace: CGColorSpaceCreateDeviceGray(),
-                                          bitmapInfo: bitmapInfo)!
-
-        // vImageMatrixMultiply_ARGB8888ToPlanar8는 column-major로 바꿔버리는 것 같으니 transpose 필요
-        // color threshold를 이용하여 완전한 black / white 분할 가능할듯
+        guard let imageBuffer = imageBuffer, let grayscaledImage = self.makeGrayscaleImage(imageBuffer: imageBuffer) else { return nil }
         
-        var error: vImage_Error = kvImageNoError
-        var sourceBuffer = imageBuffer
+        let paddingRemovedImage: CGImage?
+        if (originImageWidth > originImageHeight) {
+            let adjustHeight = Int(Float(inputHeight) * Float(originImageHeight) / Float(originImageWidth))
+            paddingRemovedImage = grayscaledImage.cropCGImage(width: inputWidth, height: adjustHeight)
+        } else if (originImageWidth < originImageHeight) {
+            let adjustWidth = Int(Float(inputWidth) * Float(originImageWidth) / Float(originImageHeight))
+            paddingRemovedImage = grayscaledImage.cropCGImage(width: adjustWidth, height: inputHeight)
+        } else {
+            paddingRemovedImage = grayscaledImage
+        }
         
-        guard let cgImage = vImageCreateCGImageFromBuffer(&sourceBuffer, &format, nil, nil, vImage_Flags(kvImageNoFlags), &error)?.takeRetainedValue(),
-              error == kvImageNoError,
-        let cfData = cgImage.dataProvider?.data else {
-            print("Error in creating CGImage: \(error)")
-            return nil
+        guard let paddingRemovedImage = paddingRemovedImage, let cfData = paddingRemovedImage.dataProvider?.data else {
+            fatalError()
         }
 
         let blurDataBufferPointer = UnsafeBufferPointer(start: CFDataGetBytePtr(cfData),
                                                         count: inputWidth * inputHeight)
+
         
-        return BlurObservation(blurMap: cgImage, grayscaledPixels: Array(blurDataBufferPointer))
+        return BlurObservation(blurMap: paddingRemovedImage, grayscaledPixels: Array(blurDataBufferPointer))
+    }
+
+    internal func makeGrayscaleImage(imageBuffer: vImage_Buffer) -> CGImage? {
+        var error: vImage_Error = kvImageNoError
+        var sourceBuffer = imageBuffer
+        
+        guard let cgImage = vImageCreateCGImageFromBuffer(&sourceBuffer, &grayscaleImageFormat, nil, nil, vImage_Flags(kvImageNoFlags), &error)?.takeRetainedValue(),
+              error == kvImageNoError
+        else {
+            print("Error in creating CGImage: \(error)")
+            return nil
+        }
+
+        return cgImage
+    }
+}
+
+private extension CGImage {
+    func cropCGImage(width: Int, height: Int) -> CGImage? {
+        let cropRect = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        guard let croppedImage = self.cropping(to: cropRect) else {
+            return nil
+        }
+        
+        return croppedImage
     }
 }

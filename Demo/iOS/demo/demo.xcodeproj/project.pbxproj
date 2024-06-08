@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE0BDED3270E0F3E000EBCB5 /* CGImage+resized.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0BDED0270E0F3E000EBCB5 /* CGImage+resized.swift */; };
 		DEC1E3BE26B6FD8B00F28525 /* blur_segmentation_quantized.tflite in Resources */ = {isa = PBXBuildFile; fileRef = DEC1E3BD26B6FD8B00F28525 /* blur_segmentation_quantized.tflite */; };
 		DEEA14AF2732F5A80060812D /* BlurDiscriminatorKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA14AE2732F5A80060812D /* BlurDiscriminatorKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DEEAC5EC269C741400D753CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEAC5EB269C741400D753CA /* AppDelegate.swift */; };
@@ -33,7 +32,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DE0BDED0270E0F3E000EBCB5 /* CGImage+resized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+resized.swift"; sourceTree = "<group>"; };
 		DEC1E3BD26B6FD8B00F28525 /* blur_segmentation_quantized.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = blur_segmentation_quantized.tflite; sourceTree = "<group>"; };
 		DEEA14AE2732F5A80060812D /* BlurDiscriminatorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlurDiscriminatorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEAC5E8269C741400D753CA /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,14 +55,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DE0BDECE270E0F3E000EBCB5 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				DE0BDED0270E0F3E000EBCB5 /* CGImage+resized.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		DEA8C498269C8FC800BF5107 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,7 +91,6 @@
 		DEEAC5EA269C741400D753CA /* demo */ = {
 			isa = PBXGroup;
 			children = (
-				DE0BDECE270E0F3E000EBCB5 /* Extensions */,
 				DEEAC5EB269C741400D753CA /* AppDelegate.swift */,
 				DEEAC5ED269C741400D753CA /* SceneDelegate.swift */,
 				DEEAC5EF269C741400D753CA /* ViewController.swift */,
@@ -198,7 +187,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE0BDED3270E0F3E000EBCB5 /* CGImage+resized.swift in Sources */,
 				DEEAC5F0269C741400D753CA /* ViewController.swift in Sources */,
 				DEEAC5EC269C741400D753CA /* AppDelegate.swift in Sources */,
 				DEEAC5EE269C741400D753CA /* SceneDelegate.swift in Sources */,
