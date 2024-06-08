@@ -1160,7 +1160,6 @@ struct NnApi {
    * the specified device.
    *
    * @param device The representation of the specified device.
-   * @param extension The extension name.
    * @param isExtensionSupported The boolean value indicating whether the
    * extension is supported.
    *

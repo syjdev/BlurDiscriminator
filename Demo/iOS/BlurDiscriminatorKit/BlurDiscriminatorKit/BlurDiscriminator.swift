@@ -27,7 +27,9 @@ public final class BlurDiscriminator {
 
 //        let cgImage = createCGImage(from: outputData, width: 224, height: 224)
         
-        return self.outputConverter.convert(data: outputData)
+        let converted = self.outputConverter.convert(data: outputData)
+        
+        return converted
     }
 
     internal func interpret(input: CGImage) -> Data? {
@@ -171,7 +173,7 @@ private func new_makeData(image: CGImage) -> Data? {
     var destinationG = [UInt8](repeating: 0, count: width * height)
     var destinationB = [UInt8](repeating: 0, count: width * height)
     
-    var destinationPlanarBuffers: [vImage_Buffer] = [
+    let destinationPlanarBuffers: [vImage_Buffer] = [
         destinationA.withUnsafeMutableBufferPointer { bufferPointer in
             return vImage_Buffer(data: bufferPointer.baseAddress, height: vImagePixelCount(height), width: vImagePixelCount(width), rowBytes: width)
         },

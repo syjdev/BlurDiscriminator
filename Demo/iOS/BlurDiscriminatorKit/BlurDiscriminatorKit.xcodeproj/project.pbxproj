@@ -4038,7 +4038,7 @@
 				HEADER_SEARCH_PATHS = "${SRCROOT}/BlurDiscriminatorKit/externals";
 				INFOPLIST_FILE = BlurDiscriminatorKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4077,7 +4077,7 @@
 				HEADER_SEARCH_PATHS = "${SRCROOT}/BlurDiscriminatorKit/externals";
 				INFOPLIST_FILE = BlurDiscriminatorKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
