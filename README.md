@@ -23,7 +23,7 @@ Currently, You can use BlurDiscriminator for only [iOS Platform](Demo/iOS). Ones
 
 # Dataset
 
-For Learning Model, I use [Blur Detection Dataset](http://www.cse.cuhk.edu.hk/~leojia/projects/dblurdetect/dataset.html). <br />
+For Learning Model, I used [Blur Detection Dataset](http://www.cse.cuhk.edu.hk/~leojia/projects/dblurdetect/dataset.html). <br />
 
 # License
 ```
