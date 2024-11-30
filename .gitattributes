@@ -1,5 +1,1 @@
-*.swift linguist-language=swift
-*.mm linguist-language=Objective-C++
-*.h linguist-language=Objective-C++
-
 Demo/** linguist-vendored
