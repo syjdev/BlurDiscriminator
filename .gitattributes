@@ -1,1 +1,10 @@
-Demo/** linguist-documentation==false
+*.tflite linguist-vendored
+*.sh linguist-vendored
+*.json linguist-vendored
+*.png linguist-vendored
+*.storyboard linguist-vendored
+*.xcodeproj linguist-vendored
+*.md linguist-vendored
+*.modulemap linguist-vendored
+
+Demo/** linguist-vendored=false
