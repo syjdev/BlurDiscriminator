@@ -6,7 +6,7 @@
 
 # Intro
 
- __Demo/iOS__ is composed, like below.
+ __Demo/iOS__  is structured as follows.
 
 <img src="https://user-images.githubusercontent.com/17686601/140548368-8d4437fe-861f-46d4-bbea-eed3f4d8365e.png" width="70%"/>
 
