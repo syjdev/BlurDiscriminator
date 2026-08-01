@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DEC1E3BE26B6FD8B00F28525 /* blur_segmentation_quantized.tflite in Resources */ = {isa = PBXBuildFile; fileRef = DEC1E3BD26B6FD8B00F28525 /* blur_segmentation_quantized.tflite */; };
+		DEB7DBD52FFBD51600B294B6 /* blur_segmentation_qat.tflite in Resources */ = {isa = PBXBuildFile; fileRef = DEB7DBD42FFBD51600B294B6 /* blur_segmentation_qat.tflite */; };
 		DEEA14AF2732F5A80060812D /* BlurDiscriminatorKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA14AE2732F5A80060812D /* BlurDiscriminatorKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DEEAC5EC269C741400D753CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEAC5EB269C741400D753CA /* AppDelegate.swift */; };
 		DEEAC5EE269C741400D753CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEAC5ED269C741400D753CA /* SceneDelegate.swift */; };
@@ -32,7 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DEC1E3BD26B6FD8B00F28525 /* blur_segmentation_quantized.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = blur_segmentation_quantized.tflite; sourceTree = "<group>"; };
+		DEB7DBD42FFBD51600B294B6 /* blur_segmentation_qat.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = blur_segmentation_qat.tflite; sourceTree = "<group>"; };
 		DEEA14AE2732F5A80060812D /* BlurDiscriminatorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlurDiscriminatorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEAC5E8269C741400D753CA /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEAC5EB269C741400D753CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		DEA8C498269C8FC800BF5107 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DEC1E3BD26B6FD8B00F28525 /* blur_segmentation_quantized.tflite */,
+				DEB7DBD42FFBD51600B294B6 /* blur_segmentation_qat.tflite */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -173,7 +173,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEC1E3BE26B6FD8B00F28525 /* blur_segmentation_quantized.tflite in Resources */,
+				DEB7DBD52FFBD51600B294B6 /* blur_segmentation_qat.tflite in Resources */,
 				DEEAC5F8269C741600D753CA /* LaunchScreen.storyboard in Resources */,
 				DEEAC5F5269C741600D753CA /* Assets.xcassets in Resources */,
 				DEEAC5F3269C741400D753CA /* Main.storyboard in Resources */,
@@ -339,6 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NHMWTHTL9L;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -359,6 +360,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = syjdev.demo.blur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

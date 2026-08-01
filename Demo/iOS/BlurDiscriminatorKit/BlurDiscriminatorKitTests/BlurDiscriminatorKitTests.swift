@@ -53,12 +53,13 @@ class BlurDiscriminatorKitTests: XCTestCase {
                 fatalError("failed to predict, image name - `\(testData.name)`")
             }
             
+            let blurRatio = observation.blurRatio(threshold: 127)
             let assertMessage = """
             Result blurRatio of predict should be similar with expectedBlurRatio.
-            Check this, \(testData.name). result: \(observation.blurRatio), expected: \(testData.expectedBlurRatio)
+            Check this, \(testData.name). result: \(blurRatio), expected: \(testData.expectedBlurRatio)
             """
-            
-            XCTAssert(abs(observation.blurRatio - testData.expectedBlurRatio) < 1, assertMessage)
+
+            XCTAssert(abs(blurRatio - testData.expectedBlurRatio) < 1, assertMessage)
         }
     }
 
