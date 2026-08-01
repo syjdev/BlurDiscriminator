@@ -7,10 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface InterpreterWrapper: NSObject
 
-- (instancetype __nonnull)initWithModelPath:(NSString * __nonnull)modelPath andNumberOfThread:(UInt8)numberOfThread;
-- (NSData * __nonnull)interpretWithInputData:(NSData * __nonnull)inputData;
+- (instancetype)initWithModelPath:(NSString *)modelPath andNumberOfThread:(UInt8)numberOfThread;
+- (nullable NSData *)interpretWithInputData:(NSData *)inputData;
 
 @end
+
+NS_ASSUME_NONNULL_END

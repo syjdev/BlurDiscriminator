@@ -6,89 +6,80 @@
 //
 
 import Foundation
-import Accelerate
+import CoreGraphics
 
 
 internal final class GrayscaleConverter: OutputConverter {
     private let inputWidth: Int
     private let inputHeight: Int
-    private var grayscaleImageFormat: vImage_CGImageFormat
 
     internal init(inputWidth: Int, inputHeight: Int) {
         self.inputWidth = inputWidth
         self.inputHeight = inputHeight
-        
-        let bitmapInfo = CGBitmapInfo(
-            rawValue: kCGBitmapByteOrder32Host.rawValue |
-            CGBitmapInfo.floatComponents.rawValue)
-        let imageFormat = vImage_CGImageFormat(bitsPerComponent: 32,
-                                               bitsPerPixel: 32,
-                                               colorSpace: CGColorSpaceCreateDeviceGray(),
-                                               bitmapInfo: bitmapInfo)!
-
-        self.grayscaleImageFormat = imageFormat
     }
-    
+
     func convert(data: Data, originImageWidth: Int, originImageHeight: Int) -> BlurObservation? {
-        var mutableData = data
-
-        let imageBuffer = mutableData.withUnsafeMutableBytes({ (rawBufferPointer) -> vImage_Buffer? in
-            let sourceBuffer = vImage_Buffer(data: rawBufferPointer.baseAddress,
-                                             height: vImagePixelCount(inputWidth),
-                                             width: vImagePixelCount(inputHeight),
-                                             rowBytes: inputWidth * 4)
-
-            
-            return sourceBuffer
-        })
-        
-        guard let imageBuffer = imageBuffer, let grayscaledImage = self.makeGrayscaleImage(imageBuffer: imageBuffer) else { return nil }
-        
-        let paddingRemovedImage: CGImage?
-        if (originImageWidth > originImageHeight) {
-            let adjustHeight = Int(Float(inputHeight) * Float(originImageHeight) / Float(originImageWidth))
-            paddingRemovedImage = grayscaledImage.cropCGImage(width: inputWidth, height: adjustHeight)
-        } else if (originImageWidth < originImageHeight) {
-            let adjustWidth = Int(Float(inputWidth) * Float(originImageWidth) / Float(originImageHeight))
-            paddingRemovedImage = grayscaledImage.cropCGImage(width: adjustWidth, height: inputHeight)
-        } else {
-            paddingRemovedImage = grayscaledImage
-        }
-        
-        guard let paddingRemovedImage = paddingRemovedImage, let cfData = paddingRemovedImage.dataProvider?.data else {
-            fatalError()
-        }
-
-        let blurDataBufferPointer = UnsafeBufferPointer(start: CFDataGetBytePtr(cfData),
-                                                        count: inputWidth * inputHeight)
-
-        
-        return BlurObservation(blurMap: paddingRemovedImage, grayscaledPixels: Array(blurDataBufferPointer))
-    }
-
-    internal func makeGrayscaleImage(imageBuffer: vImage_Buffer) -> CGImage? {
-        var error: vImage_Error = kvImageNoError
-        var sourceBuffer = imageBuffer
-        
-        guard let cgImage = vImageCreateCGImageFromBuffer(&sourceBuffer, &grayscaleImageFormat, nil, nil, vImage_Flags(kvImageNoFlags), &error)?.takeRetainedValue(),
-              error == kvImageNoError
+        // The uint8 model emits one byte per pixel (sigmoid output, scale 1/256),
+        // which maps directly onto an 8-bit grayscale image.
+        guard data.count >= inputWidth * inputHeight,
+              originImageWidth > 0, originImageHeight > 0
         else {
-            print("Error in creating CGImage: \(error)")
             return nil
         }
 
-        return cgImage
+        let pixels = [UInt8](data.prefix(inputWidth * inputHeight))
+
+        let cropWidth: Int
+        let cropHeight: Int
+        if originImageWidth > originImageHeight {
+            cropWidth = inputWidth
+            cropHeight = Int(Float(inputHeight) * Float(originImageHeight) / Float(originImageWidth))
+        } else if originImageWidth < originImageHeight {
+            cropWidth = Int(Float(inputWidth) * Float(originImageWidth) / Float(originImageHeight))
+            cropHeight = inputHeight
+        } else {
+            cropWidth = inputWidth
+            cropHeight = inputHeight
+        }
+
+        let croppedPixels = cropPixels(pixels, cropWidth: cropWidth, cropHeight: cropHeight)
+
+        guard let blurMap = makeGrayscaleImage(pixels: croppedPixels, width: cropWidth, height: cropHeight) else {
+            return nil
+        }
+
+        return BlurObservation(blurMap: blurMap, grayscaledPixels: croppedPixels)
     }
-}
 
-private extension CGImage {
-    func cropCGImage(width: Int, height: Int) -> CGImage? {
-        let cropRect = CGRect(x: 0, y: 0, width: width, height: height)
-        
-        guard let croppedImage = self.cropping(to: cropRect) else {
+    private func cropPixels(_ pixels: [UInt8], cropWidth: Int, cropHeight: Int) -> [UInt8] {
+        guard cropWidth != inputWidth || cropHeight != inputHeight else { return pixels }
+
+        var cropped = [UInt8]()
+        cropped.reserveCapacity(cropWidth * cropHeight)
+        for row in 0..<cropHeight {
+            let rowStart = row * inputWidth
+            cropped.append(contentsOf: pixels[rowStart..<(rowStart + cropWidth)])
+        }
+        return cropped
+    }
+
+    private func makeGrayscaleImage(pixels: [UInt8], width: Int, height: Int) -> CGImage? {
+        guard width > 0, height > 0,
+              let dataProvider = CGDataProvider(data: Data(pixels) as CFData)
+        else {
             return nil
         }
-        
-        return croppedImage
+
+        return CGImage(width: width,
+                       height: height,
+                       bitsPerComponent: 8,
+                       bitsPerPixel: 8,
+                       bytesPerRow: width,
+                       space: CGColorSpaceCreateDeviceGray(),
+                       bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
+                       provider: dataProvider,
+                       decode: nil,
+                       shouldInterpolate: false,
+                       intent: .defaultIntent)
     }
 }
