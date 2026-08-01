@@ -10,10 +10,10 @@
 		DE02C86029EDD68500FD93D2 /* libtensorflow-lite.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE02C85C29EDCAF900FD93D2 /* libtensorflow-lite.xcframework */; };
 		DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */; };
 		DE90DBBE2737B43F0048E41B /* BlurDiscriminatorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */; platformFilter = ios; };
-		DE90DBC92737BB9A0048E41B /* image_f264_horizontal_fliped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC52737BB9A0048E41B /* image_f264_horizontal_fliped.jpg */; };
-		DE90DBCA2737BB9A0048E41B /* image_f67_origin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC62737BB9A0048E41B /* image_f67_origin.jpg */; };
-		DE90DBCB2737BB9A0048E41B /* blur_segmentation_quantized.tflite in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC72737BB9A0048E41B /* blur_segmentation_quantized.tflite */; };
-		DE90DBCC2737BB9A0048E41B /* image_f477_origin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE90DBC82737BB9A0048E41B /* image_f477_origin.jpg */; };
+		DEB4398A301E054A004A786D /* blur_segmentation_qat.tflite in Resources */ = {isa = PBXBuildFile; fileRef = DEB43986301E054A004A786D /* blur_segmentation_qat.tflite */; };
+		DEB4398B301E054A004A786D /* dut_test_0189.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DEB43989301E054A004A786D /* dut_test_0189.jpg */; };
+		DEB4398C301E054A004A786D /* dut_test_0044.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DEB43988301E054A004A786D /* dut_test_0044.jpg */; };
+		DEB4398D301E054A004A786D /* dut_test_0041.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DEB43987301E054A004A786D /* dut_test_0041.jpg */; };
 		DEEA0E812732F3A90060812D /* BlurDiscriminatorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E7F2732F3A90060812D /* BlurDiscriminatorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEEA11DB2732F4420060812D /* InterpreterWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = DEEA0E882732F43E0060812D /* InterpreterWrapper.mm */; };
 		DEEA11DC2732F4420060812D /* InterpreterWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E892732F43E0060812D /* InterpreterWrapper.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -717,10 +717,10 @@
 		DE90DBB92737B43E0048E41B /* BlurDiscriminatorKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlurDiscriminatorKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorKitTests.swift; sourceTree = "<group>"; };
 		DE90DBBD2737B43F0048E41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DE90DBC52737BB9A0048E41B /* image_f264_horizontal_fliped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_f264_horizontal_fliped.jpg; sourceTree = "<group>"; };
-		DE90DBC62737BB9A0048E41B /* image_f67_origin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_f67_origin.jpg; sourceTree = "<group>"; };
-		DE90DBC72737BB9A0048E41B /* blur_segmentation_quantized.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = blur_segmentation_quantized.tflite; sourceTree = "<group>"; };
-		DE90DBC82737BB9A0048E41B /* image_f477_origin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_f477_origin.jpg; sourceTree = "<group>"; };
+		DEB43986301E054A004A786D /* blur_segmentation_qat.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = blur_segmentation_qat.tflite; sourceTree = "<group>"; };
+		DEB43987301E054A004A786D /* dut_test_0041.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dut_test_0041.jpg; sourceTree = "<group>"; };
+		DEB43988301E054A004A786D /* dut_test_0044.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dut_test_0044.jpg; sourceTree = "<group>"; };
+		DEB43989301E054A004A786D /* dut_test_0189.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dut_test_0189.jpg; sourceTree = "<group>"; };
 		DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlurDiscriminatorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEA0E7F2732F3A90060812D /* BlurDiscriminatorKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlurDiscriminatorKit.h; sourceTree = "<group>"; };
 		DEEA0E802732F3A90060812D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1452,10 +1452,10 @@
 		DE90DBC42737BA230048E41B /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				DE90DBC72737BB9A0048E41B /* blur_segmentation_quantized.tflite */,
-				DE90DBC62737BB9A0048E41B /* image_f67_origin.jpg */,
-				DE90DBC52737BB9A0048E41B /* image_f264_horizontal_fliped.jpg */,
-				DE90DBC82737BB9A0048E41B /* image_f477_origin.jpg */,
+				DEB43986301E054A004A786D /* blur_segmentation_qat.tflite */,
+				DEB43987301E054A004A786D /* dut_test_0041.jpg */,
+				DEB43988301E054A004A786D /* dut_test_0044.jpg */,
+				DEB43989301E054A004A786D /* dut_test_0189.jpg */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -3799,10 +3799,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE90DBC92737BB9A0048E41B /* image_f264_horizontal_fliped.jpg in Resources */,
-				DE90DBCC2737BB9A0048E41B /* image_f477_origin.jpg in Resources */,
-				DE90DBCB2737BB9A0048E41B /* blur_segmentation_quantized.tflite in Resources */,
-				DE90DBCA2737BB9A0048E41B /* image_f67_origin.jpg in Resources */,
+				DEB4398A301E054A004A786D /* blur_segmentation_qat.tflite in Resources */,
+				DEB4398B301E054A004A786D /* dut_test_0189.jpg in Resources */,
+				DEB4398C301E054A004A786D /* dut_test_0044.jpg in Resources */,
+				DEB4398D301E054A004A786D /* dut_test_0041.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,9 +16,9 @@ class BlurDiscriminatorKitTests: XCTestCase {
         let expectedBlurRatio: Float
     }
     
-    private let testDatas = [TestData(name: "image_f264_horizontal_fliped.jpg", expectedBlurRatio: 0.75),
-                              TestData(name: "image_f67_origin.jpg", expectedBlurRatio: 0.75),
-                              TestData(name: "image_f477_origin.jpg", expectedBlurRatio: 0.73)]
+    private let testDatas = [TestData(name: "dut_test_0041.jpg", expectedBlurRatio: 0.65),
+                              TestData(name: "dut_test_0044.jpg", expectedBlurRatio: 0.76),
+                              TestData(name: "dut_test_0189.jpg", expectedBlurRatio: 0.94)]
     
     private lazy var bundle: Bundle = {
         return Bundle(for: type(of: self))
@@ -27,7 +27,7 @@ class BlurDiscriminatorKitTests: XCTestCase {
     
     
     override func setUpWithError() throws {
-        guard let modelPath = bundle.path(forResource: "blur_segmentation_quantized", ofType: "tflite")
+        guard let modelPath = bundle.path(forResource: "blur_segmentation_qat", ofType: "tflite")
         else {
             fatalError("failed to find `blur_segmentation_quantized.tflite`")
         }
