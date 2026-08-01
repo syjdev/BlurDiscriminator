@@ -43,13 +43,13 @@ class BlurDiscriminatorKitTests: XCTestCase {
     }
 
     
-    func test_predict_with_images() throws {
+    func test_predict_with_images() async throws {
         for testData in testDatas {
             guard let image = UIImage(named: testData.name, in: bundle, compatibleWith: nil)?.cgImage else {
                 fatalError("failed to find a image, `\(testData.name)`")
             }
-            
-            guard let observation = blurDiscriminator?.predict(input: image) else {
+
+            guard let observation = await blurDiscriminator?.predict(input: image) else {
                 fatalError("failed to predict, image name - `\(testData.name)`")
             }
             

@@ -8,7 +8,7 @@
 import Foundation
 
 
-internal struct Constants {
+internal enum Constants {
     static let inputWidth = 224
     static let inputHeight = 224
 }
