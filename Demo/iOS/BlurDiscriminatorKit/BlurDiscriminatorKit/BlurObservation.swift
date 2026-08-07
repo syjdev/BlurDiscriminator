@@ -33,10 +33,10 @@ public struct BlurObservation: Sendable {
     /// than `threshold`. Use the returned ratio to decide whether an image is blurry overall,
     /// e.g. treat it as blurry when the ratio exceeds some cutoff.
     ///
-    /// - Parameter threshold: The intensity cutoff in the range `0...255`; higher values count
-    ///   fewer pixels as blurry.
+    /// - Parameter threshold: The intensity cutoff; higher values count fewer pixels as blurry.
+    ///   Defaults to `127`, the midpoint of the intensity range.
     /// - Returns: A value in `0...1` — the number of blurry pixels divided by the total.
-    public func blurRatio(threshold: Int) -> Float {
+    public func blurRatio(threshold: UInt8 = 127) -> Float {
         let numberOfBlur = grayscaledPixels.count { $0 > threshold }
         return Float(numberOfBlur) / Float(grayscaledPixels.count)
     }

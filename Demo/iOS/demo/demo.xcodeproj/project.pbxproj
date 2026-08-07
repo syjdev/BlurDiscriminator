@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DEB7DBD52FFBD51600B294B6 /* blur_segmentation_qat.tflite in Resources */ = {isa = PBXBuildFile; fileRef = DEB7DBD42FFBD51600B294B6 /* blur_segmentation_qat.tflite */; };
 		DEEA14AF2732F5A80060812D /* BlurDiscriminatorKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA14AE2732F5A80060812D /* BlurDiscriminatorKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DEEAC5EC269C741400D753CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEAC5EB269C741400D753CA /* AppDelegate.swift */; };
 		DEEAC5EE269C741400D753CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEAC5ED269C741400D753CA /* SceneDelegate.swift */; };
@@ -32,7 +31,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DEB7DBD42FFBD51600B294B6 /* blur_segmentation_qat.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = blur_segmentation_qat.tflite; sourceTree = "<group>"; };
 		DEEA14AE2732F5A80060812D /* BlurDiscriminatorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlurDiscriminatorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEAC5E8269C741400D753CA /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEAC5EB269C741400D753CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,14 +53,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DEA8C498269C8FC800BF5107 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				DEB7DBD42FFBD51600B294B6 /* blur_segmentation_qat.tflite */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		DEEA14AD2732F5A80060812D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +88,6 @@
 				DEEAC5F4269C741600D753CA /* Assets.xcassets */,
 				DEEAC5F9269C741600D753CA /* Info.plist */,
 				DEEAC5F6269C741600D753CA /* LaunchScreen.storyboard */,
-				DEA8C498269C8FC800BF5107 /* Resources */,
 			);
 			name = demo;
 			sourceTree = "<group>";
@@ -173,7 +162,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEB7DBD52FFBD51600B294B6 /* blur_segmentation_qat.tflite in Resources */,
 				DEEAC5F8269C741600D753CA /* LaunchScreen.storyboard in Resources */,
 				DEEAC5F5269C741600D753CA /* Assets.xcassets in Resources */,
 				DEEAC5F3269C741400D753CA /* Main.storyboard in Resources */,
@@ -354,10 +342,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-lc++",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = syjdev.demo.blur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -389,10 +374,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-lc++",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = syjdev.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
