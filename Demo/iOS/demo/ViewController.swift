@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var inputImageView: UIImageView!
     @IBOutlet weak var outputImageView: UIImageView!
     @IBOutlet weak var elapsedTimeLabel: UILabel!
-    let imageNames = ["dut_test_0041", "dut_test_0044", "dut_test_0055", "dut_test_0132", "dut_test_0184", "dut_test_0189"]
+    let imageNames = ["dut_test_0041", "motion0296", "dut_test_0044", "motion0293", "dut_test_0055", "dut_test_0132", "out_of_focus0691", "dut_test_0184", "dut_test_0189", "out_of_focus0697"]
     private var currentImageIndex: Int = 0
     private let blurDiscriminator = BlurDiscriminator()
 

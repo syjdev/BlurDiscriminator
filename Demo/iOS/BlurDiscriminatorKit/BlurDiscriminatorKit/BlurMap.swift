@@ -24,6 +24,41 @@ internal enum PixelConverter {
 }
 
 
+internal enum BlurMapGeometry {
+    /// The un-padded region of a letterboxed square output, matching the original image's aspect
+    /// ratio. Mirrors the top-left aspect-fit placement used by ``CGImage/makeAspectFitPadded(width:height:)``,
+    /// so the returned size is the slice of the model output that corresponds to real image content.
+    static func croppedSize(outputWidth: Int, outputHeight: Int,
+                            originalWidth: Int, originalHeight: Int) -> (width: Int, height: Int) {
+        guard originalWidth > 0, originalHeight > 0 else { return (outputWidth, outputHeight) }
+
+        if originalWidth > originalHeight {
+            return (outputWidth, Int(Float(outputHeight) * Float(originalHeight) / Float(originalWidth)))
+        } else if originalWidth < originalHeight {
+            return (Int(Float(outputWidth) * Float(originalWidth) / Float(originalHeight)), outputHeight)
+        } else {
+            return (outputWidth, outputHeight)
+        }
+    }
+
+    /// Crops the top-left `cropWidth`×`cropHeight` block out of a row-major, `sourceWidth`-wide map.
+    static func cropTopLeft(_ pixels: [UInt8], sourceWidth: Int,
+                            cropWidth: Int, cropHeight: Int) -> [UInt8] {
+        guard sourceWidth > 0 else { return pixels }
+        let sourceHeight = pixels.count / sourceWidth
+        guard cropWidth < sourceWidth || cropHeight < sourceHeight else { return pixels }
+
+        var cropped = [UInt8]()
+        cropped.reserveCapacity(cropWidth * cropHeight)
+        for row in 0 ..< cropHeight {
+            let start = row * sourceWidth
+            cropped.append(contentsOf: pixels[start ..< start + cropWidth])
+        }
+        return cropped
+    }
+}
+
+
 internal enum BlurMapRenderer {
     /// Builds a grayscale CGImage from width×height UInt8 pixels in row-major order.
     static func makeBlurMap(grayscaledPixels: [UInt8], width: Int, height: Int) -> CGImage? {

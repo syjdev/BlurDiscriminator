@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A8978422621CC9146B5BCF3 /* CGImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F2E2AF2A0437537333C08A /* CGImage+resize.swift */; };
 		6B22DA0DF98A5F3F043C2FB2 /* BlurSegmentation.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 32C2EACCA5B7A4F2C00A54F5 /* BlurSegmentation.mlpackage */; };
 		7B7E6B5BF45BC50981B78C13 /* BlurDiscriminatorLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4695E27633018BA75A53F2 /* BlurDiscriminatorLoadingTests.swift */; };
 		9420062D36C325523D8A97CD /* CoreMLBlurPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3A2C4F29FFCAF4B2288D7 /* CoreMLBlurPredictor.swift */; };
+		D9EAD5059A90A71106EE3EB6 /* BlurMapGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064263E9E723F1416746F8DA /* BlurMapGeometryTests.swift */; };
 		DE85CC4F3DD8CF3298FCC7F0 /* BlurMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EFA6F3C2DB0A382A617E59 /* BlurMap.swift */; };
 		DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */; };
 		DE90DBBE2737B43F0048E41B /* BlurDiscriminatorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */; platformFilter = ios; };
@@ -32,10 +34,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		064263E9E723F1416746F8DA /* BlurMapGeometryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlurMapGeometryTests.swift; sourceTree = "<group>"; };
 		2C4695E27633018BA75A53F2 /* BlurDiscriminatorLoadingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorLoadingTests.swift; sourceTree = "<group>"; };
 		32C2EACCA5B7A4F2C00A54F5 /* BlurSegmentation.mlpackage */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.mlpackage; path = BlurSegmentation.mlpackage; sourceTree = "<group>"; };
 		4FB3A2C4F29FFCAF4B2288D7 /* CoreMLBlurPredictor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreMLBlurPredictor.swift; sourceTree = "<group>"; };
 		98EFA6F3C2DB0A382A617E59 /* BlurMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlurMap.swift; sourceTree = "<group>"; };
+		D5F2E2AF2A0437537333C08A /* CGImage+resize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CGImage+resize.swift"; sourceTree = "<group>"; };
 		DE90DBB92737B43E0048E41B /* BlurDiscriminatorKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlurDiscriminatorKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorKitTests.swift; sourceTree = "<group>"; };
 		DE90DBBD2737B43F0048E41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 				DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */,
 				DE90DBBD2737B43F0048E41B /* Info.plist */,
 				2C4695E27633018BA75A53F2 /* BlurDiscriminatorLoadingTests.swift */,
+				064263E9E723F1416746F8DA /* BlurMapGeometryTests.swift */,
 			);
 			path = BlurDiscriminatorKitTests;
 			sourceTree = "<group>";
@@ -125,6 +130,7 @@
 				4FB3A2C4F29FFCAF4B2288D7 /* CoreMLBlurPredictor.swift */,
 				98EFA6F3C2DB0A382A617E59 /* BlurMap.swift */,
 				32C2EACCA5B7A4F2C00A54F5 /* BlurSegmentation.mlpackage */,
+				D5F2E2AF2A0437537333C08A /* CGImage+resize.swift */,
 			);
 			path = BlurDiscriminatorKit;
 			sourceTree = "<group>";
@@ -243,6 +249,7 @@
 			files = (
 				DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */,
 				7B7E6B5BF45BC50981B78C13 /* BlurDiscriminatorLoadingTests.swift in Sources */,
+				D9EAD5059A90A71106EE3EB6 /* BlurMapGeometryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +262,7 @@
 				9420062D36C325523D8A97CD /* CoreMLBlurPredictor.swift in Sources */,
 				DE85CC4F3DD8CF3298FCC7F0 /* BlurMap.swift in Sources */,
 				6B22DA0DF98A5F3F043C2FB2 /* BlurSegmentation.mlpackage in Sources */,
+				0A8978422621CC9146B5BCF3 /* CGImage+resize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

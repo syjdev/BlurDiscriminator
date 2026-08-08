@@ -20,7 +20,11 @@ import Vision
 /// `@unchecked Sendable`: the only stored property is an immutable `VNCoreMLModel`, which
 /// Vision allows to be shared across threads. (`VNCoreMLModel` itself just isn't annotated.)
 internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
+    private struct MalformedModelError: Error { let reason: String }
+
     private let visionModel: VNCoreMLModel
+    private let inputWidth: Int
+    private let inputHeight: Int
 
     /// Loads the compiled model that ships in this framework's bundle.
     ///
@@ -35,17 +39,34 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
 
         do {
             let segmentation = try await BlurSegmentation.load(configuration: configuration)
-            self.visionModel = try VNCoreMLModel(for: segmentation.model)
+            let mlModel = segmentation.model
+
+            // Read the required input size from the model instead of hardcoding 224, so a
+            // reconverted model with a different input size keeps working.
+            guard let imageInput = mlModel.modelDescription.inputDescriptionsByName.values.first(where: { $0.type == .image }),
+                  let constraint = imageInput.imageConstraint else {
+                throw MalformedModelError(reason: "model has no image input constraint")
+            }
+            self.inputWidth = constraint.pixelsWide
+            self.inputHeight = constraint.pixelsHigh
+            self.visionModel = try VNCoreMLModel(for: mlModel)
         } catch {
             throw BlurDiscriminatorError.modelLoadFailed(underlying: error)
         }
     }
 
     func predict(input: CGImage) throws -> BlurObservation {
-        let request = VNCoreMLRequest(model: visionModel)
-        request.imageCropAndScaleOption = .scaleFill  // match training: no aspect crop
+        // Letterbox to the model's input size so the model sees the same undistorted, black-padded
+        // image it was trained on. Because the padded image already matches the input size, Vision's
+        // `.scaleFill` is an identity resize and introduces no distortion of its own.
+        guard let paddedInput = input.makeAspectFitPadded(width: inputWidth, height: inputHeight) else {
+            throw BlurDiscriminatorError.imagePreprocessingFailed
+        }
 
-        let handler = VNImageRequestHandler(cgImage: input, options: [:])
+        let request = VNCoreMLRequest(model: visionModel)
+        request.imageCropAndScaleOption = .scaleFill
+
+        let handler = VNImageRequestHandler(cgImage: paddedInput, options: [:])
         do {
             try handler.perform([request])
         } catch {
@@ -57,24 +78,38 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
             throw BlurDiscriminatorError.unexpectedOutput
         }
 
-        return try makeObservation(from: multiArray)
+        return try makeObservation(from: multiArray,
+                                   originalWidth: input.width,
+                                   originalHeight: input.height)
     }
 
-    private func makeObservation(from multiArray: MLMultiArray) throws -> BlurObservation {
+    private func makeObservation(from multiArray: MLMultiArray,
+                                 originalWidth: Int,
+                                 originalHeight: Int) throws -> BlurObservation {
         // The model outputs a 1xHxWx1 (NHWC) sigmoid map. Take the blur-map size from
-        // the actual output tensor instead of hardcoding the model's current 224x224,
-        // so a reconverted model with a different input size keeps working.
+        // the actual output tensor instead of hardcoding the model's current 224x224.
         let shape = multiArray.shape.map { $0.intValue }
         guard shape.count == 4, shape[0] == 1, shape[3] == 1 else {
             throw BlurDiscriminatorError.unexpectedOutput
         }
-        let height = shape[1]
-        let width = shape[2]
+        let outputHeight = shape[1]
+        let outputWidth = shape[2]
 
-        let pixels = try grayscalePixels(from: multiArray, count: width * height)
+        let fullPixels = try grayscalePixels(from: multiArray, count: outputWidth * outputHeight)
+
+        // Crop the padded region back out so the blur map matches the original image's aspect ratio.
+        let cropped = BlurMapGeometry.croppedSize(outputWidth: outputWidth,
+                                                  outputHeight: outputHeight,
+                                                  originalWidth: originalWidth,
+                                                  originalHeight: originalHeight)
+        let pixels = BlurMapGeometry.cropTopLeft(fullPixels,
+                                                 sourceWidth: outputWidth,
+                                                 cropWidth: cropped.width,
+                                                 cropHeight: cropped.height)
+
         guard let blurMap = BlurMapRenderer.makeBlurMap(grayscaledPixels: pixels,
-                                                        width: width,
-                                                        height: height) else {
+                                                        width: cropped.width,
+                                                        height: cropped.height) else {
             throw BlurDiscriminatorError.unexpectedOutput
         }
         return BlurObservation(blurMap: blurMap, grayscaledPixels: pixels)

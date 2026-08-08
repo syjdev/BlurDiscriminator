@@ -12,6 +12,8 @@ import Foundation
 public enum BlurDiscriminatorError: Error {
     /// The Core ML model failed to load from the framework bundle.
     case modelLoadFailed(underlying: Error)
+    /// The input image could not be prepared (letterboxed) for the model.
+    case imagePreprocessingFailed
     /// The Vision request failed while running the model.
     case inferenceFailed(underlying: Error)
     /// The model produced an output the framework does not understand.
@@ -30,10 +32,11 @@ internal protocol BlurPredicting: Sendable {
 /// inside this framework). Given a `CGImage`, it produces a ``BlurObservation`` describing, per
 /// pixel, how blurry the input is.
 ///
-/// The input image is resized to the model's fixed input size (currently 224×224) internally,
-/// so any image size may be passed. `BlurDiscriminator` is an actor: concurrent calls are
-/// serialized by actor isolation, so a single instance is safe to share across concurrency
-/// domains.
+/// The input image is letterboxed to the model's fixed input size (currently 224×224) internally —
+/// aspect ratio is preserved with black padding — and the resulting blur map is cropped back to the
+/// original image's aspect ratio. Any image size may be passed. `BlurDiscriminator` is an actor:
+/// concurrent calls are serialized by actor isolation, so a single instance is safe to share across
+/// concurrency domains.
 ///
 /// ```swift
 /// let discriminator = BlurDiscriminator()
