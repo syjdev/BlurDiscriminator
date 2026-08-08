@@ -11,14 +11,10 @@ import BlurDiscriminatorKit
 
 
 class BlurDiscriminatorKitTests: XCTestCase {
-    struct TestData {
-        let name: String
-        let expectedBlurRatio: Float
-    }
-
-    private let testDatas = [TestData(name: "dut_test_0041.jpg", expectedBlurRatio: 0.65),
-                              TestData(name: "dut_test_0044.jpg", expectedBlurRatio: 0.76),
-                              TestData(name: "dut_test_0189.jpg", expectedBlurRatio: 0.94)]
+    // CC0 sample images (Wikimedia Commons, public domain) bundled as test fixtures.
+    private let imageNames = ["cc0_cherry_blossom.jpg",
+                              "cc0_ant_sunflower.jpg",
+                              "cc0_misty_river.jpg"]
 
     private lazy var bundle: Bundle = {
         return Bundle(for: type(of: self))
@@ -29,20 +25,23 @@ class BlurDiscriminatorKitTests: XCTestCase {
     private let blurDiscriminator = BlurDiscriminator()
 
 
+    // End-to-end smoke test: the bundled model runs on real images and produces a
+    // well-formed blur map. The exact blur ratio is model-specific, so we assert the
+    // output is valid rather than pinning a magic number.
     func test_predict_with_images() async throws {
-        for testData in testDatas {
-            let image = try XCTUnwrap(UIImage(named: testData.name, in: bundle, compatibleWith: nil)?.cgImage,
-                                      "failed to find a image, `\(testData.name)`")
+        for name in imageNames {
+            let image = try XCTUnwrap(UIImage(named: name, in: bundle, compatibleWith: nil)?.cgImage,
+                                      "failed to find image `\(name)`")
 
             let observation = try await blurDiscriminator.predict(input: image)
 
-            let blurRatio = observation.blurRatio()
-            let assertMessage = """
-            Result blurRatio of predict should be similar with expectedBlurRatio.
-            Check this, \(testData.name). result: \(blurRatio), expected: \(testData.expectedBlurRatio)
-            """
+            XCTAssertGreaterThan(observation.grayscaledPixels.count, 0, "\(name): empty blur map")
+            XCTAssertEqual(observation.blurMap.width * observation.blurMap.height,
+                           observation.grayscaledPixels.count,
+                           "\(name): blur map size and pixel count disagree")
 
-            XCTAssert(abs(blurRatio - testData.expectedBlurRatio) < 1, assertMessage)
+            let ratio = observation.blurRatio()
+            XCTAssert((0...1).contains(ratio), "\(name): blur ratio \(ratio) out of range")
         }
     }
 

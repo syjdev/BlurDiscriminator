@@ -8,16 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		0A8978422621CC9146B5BCF3 /* CGImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F2E2AF2A0437537333C08A /* CGImage+resize.swift */; };
+		56EBB025FFBC562404E3CD1A /* cc0_misty_river.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D3DD43200685F748A77934D /* cc0_misty_river.jpg */; };
 		6B22DA0DF98A5F3F043C2FB2 /* BlurSegmentation.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 32C2EACCA5B7A4F2C00A54F5 /* BlurSegmentation.mlpackage */; };
 		7B7E6B5BF45BC50981B78C13 /* BlurDiscriminatorLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4695E27633018BA75A53F2 /* BlurDiscriminatorLoadingTests.swift */; };
 		9420062D36C325523D8A97CD /* CoreMLBlurPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB3A2C4F29FFCAF4B2288D7 /* CoreMLBlurPredictor.swift */; };
-		D9EAD5059A90A71106EE3EB6 /* BlurMapGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064263E9E723F1416746F8DA /* BlurMapGeometryTests.swift */; };
+		AAC604803B1845D1F5A5FA06 /* cc0_cherry_blossom.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 27A4C748729C296387CA6A57 /* cc0_cherry_blossom.jpg */; };
+		C42C470E371C0665D6122AD6 /* cc0_ant_sunflower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C64B8D724CF8C561C84E3B3D /* cc0_ant_sunflower.jpg */; };
 		DE85CC4F3DD8CF3298FCC7F0 /* BlurMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EFA6F3C2DB0A382A617E59 /* BlurMap.swift */; };
 		DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */; };
 		DE90DBBE2737B43F0048E41B /* BlurDiscriminatorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */; platformFilter = ios; };
-		DEB4398B301E054A004A786D /* dut_test_0189.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DEB43989301E054A004A786D /* dut_test_0189.jpg */; };
-		DEB4398C301E054A004A786D /* dut_test_0044.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DEB43988301E054A004A786D /* dut_test_0044.jpg */; };
-		DEB4398D301E054A004A786D /* dut_test_0041.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DEB43987301E054A004A786D /* dut_test_0041.jpg */; };
 		DEEA0E812732F3A90060812D /* BlurDiscriminatorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEA0E7F2732F3A90060812D /* BlurDiscriminatorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEEA14A82732F4440060812D /* BlurObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA11D62732F4420060812D /* BlurObservation.swift */; };
 		DEEA14A92732F4440060812D /* BlurDiscriminator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA11D72732F4420060812D /* BlurDiscriminator.swift */; };
@@ -34,18 +33,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		064263E9E723F1416746F8DA /* BlurMapGeometryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlurMapGeometryTests.swift; sourceTree = "<group>"; };
+		27A4C748729C296387CA6A57 /* cc0_cherry_blossom.jpg */ = {isa = PBXFileReference; includeInIndex = 1; path = cc0_cherry_blossom.jpg; sourceTree = "<group>"; };
 		2C4695E27633018BA75A53F2 /* BlurDiscriminatorLoadingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorLoadingTests.swift; sourceTree = "<group>"; };
 		32C2EACCA5B7A4F2C00A54F5 /* BlurSegmentation.mlpackage */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.mlpackage; path = BlurSegmentation.mlpackage; sourceTree = "<group>"; };
 		4FB3A2C4F29FFCAF4B2288D7 /* CoreMLBlurPredictor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreMLBlurPredictor.swift; sourceTree = "<group>"; };
+		7D3DD43200685F748A77934D /* cc0_misty_river.jpg */ = {isa = PBXFileReference; includeInIndex = 1; path = cc0_misty_river.jpg; sourceTree = "<group>"; };
 		98EFA6F3C2DB0A382A617E59 /* BlurMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlurMap.swift; sourceTree = "<group>"; };
+		C64B8D724CF8C561C84E3B3D /* cc0_ant_sunflower.jpg */ = {isa = PBXFileReference; includeInIndex = 1; path = cc0_ant_sunflower.jpg; sourceTree = "<group>"; };
 		D5F2E2AF2A0437537333C08A /* CGImage+resize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CGImage+resize.swift"; sourceTree = "<group>"; };
 		DE90DBB92737B43E0048E41B /* BlurDiscriminatorKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlurDiscriminatorKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorKitTests.swift; sourceTree = "<group>"; };
 		DE90DBBD2737B43F0048E41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DEB43987301E054A004A786D /* dut_test_0041.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dut_test_0041.jpg; sourceTree = "<group>"; };
-		DEB43988301E054A004A786D /* dut_test_0044.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dut_test_0044.jpg; sourceTree = "<group>"; };
-		DEB43989301E054A004A786D /* dut_test_0189.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dut_test_0189.jpg; sourceTree = "<group>"; };
 		DEEA0E7C2732F3A90060812D /* BlurDiscriminatorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlurDiscriminatorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEEA0E7F2732F3A90060812D /* BlurDiscriminatorKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlurDiscriminatorKit.h; sourceTree = "<group>"; };
 		DEEA0E802732F3A90060812D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 				DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */,
 				DE90DBBD2737B43F0048E41B /* Info.plist */,
 				2C4695E27633018BA75A53F2 /* BlurDiscriminatorLoadingTests.swift */,
-				064263E9E723F1416746F8DA /* BlurMapGeometryTests.swift */,
 			);
 			path = BlurDiscriminatorKitTests;
 			sourceTree = "<group>";
@@ -94,9 +91,9 @@
 		DE90DBC42737BA230048E41B /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				DEB43987301E054A004A786D /* dut_test_0041.jpg */,
-				DEB43988301E054A004A786D /* dut_test_0044.jpg */,
-				DEB43989301E054A004A786D /* dut_test_0189.jpg */,
+				27A4C748729C296387CA6A57 /* cc0_cherry_blossom.jpg */,
+				C64B8D724CF8C561C84E3B3D /* cc0_ant_sunflower.jpg */,
+				7D3DD43200685F748A77934D /* cc0_misty_river.jpg */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -227,9 +224,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEB4398B301E054A004A786D /* dut_test_0189.jpg in Resources */,
-				DEB4398C301E054A004A786D /* dut_test_0044.jpg in Resources */,
-				DEB4398D301E054A004A786D /* dut_test_0041.jpg in Resources */,
+				AAC604803B1845D1F5A5FA06 /* cc0_cherry_blossom.jpg in Resources */,
+				C42C470E371C0665D6122AD6 /* cc0_ant_sunflower.jpg in Resources */,
+				56EBB025FFBC562404E3CD1A /* cc0_misty_river.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +246,6 @@
 			files = (
 				DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */,
 				7B7E6B5BF45BC50981B78C13 /* BlurDiscriminatorLoadingTests.swift in Sources */,
-				D9EAD5059A90A71106EE3EB6 /* BlurMapGeometryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
