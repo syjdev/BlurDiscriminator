@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Blur Demo</string>
+    <string name="run">Run blur detection</string>
+    <string name="input_label">Input</string>
+    <string name="output_label">Blur map</string>
+    <string name="idle">Tap “Run” to detect blur.</string>
+    <string name="result_format">elapsed: %1$d ms   blur ratio: %2$.2f</string>
+    <string name="error_format">error: %1$s</string>
+</resources>

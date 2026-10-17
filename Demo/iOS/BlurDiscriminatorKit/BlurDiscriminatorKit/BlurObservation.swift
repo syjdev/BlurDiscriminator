@@ -9,7 +9,7 @@
 import CoreGraphics
 
 
-/// The result of running ``BlurDiscriminator/predict(input:)`` on an image.
+/// The result of running ``BlurDiscriminator/predict(input:orientation:)`` on an image.
 ///
 /// A `BlurObservation` describes, per pixel, how blurry the analyzed image is. Pixel values
 /// range from `0` (clear) to `255` (blurry), matched to the original image's dimensions.

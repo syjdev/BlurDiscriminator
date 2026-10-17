@@ -50,9 +50,9 @@
                                     <action selector="didClickRunButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yFI-hC-7f3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time to predict : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ulf-fI-HwT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time to predict : " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ulf-fI-HwT">
                                 <rect key="frame" x="35" y="704.5" width="344" height="26.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemBlueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -81,6 +81,7 @@
                         <outlet property="elapsedTimeLabel" destination="Ulf-fI-HwT" id="WAO-7O-3ow"/>
                         <outlet property="inputImageView" destination="ktK-tB-F8H" id="q30-Cu-NW6"/>
                         <outlet property="outputImageView" destination="zU8-0X-lP1" id="SfN-CW-S1X"/>
+                        <outlet property="runButton" destination="RIf-Dj-87U" id="rBt-0u-7Lk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

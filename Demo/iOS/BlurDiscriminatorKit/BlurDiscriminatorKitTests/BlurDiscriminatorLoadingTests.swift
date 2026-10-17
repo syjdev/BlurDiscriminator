@@ -8,6 +8,7 @@
 
 import XCTest
 import CoreGraphics
+import ImageIO
 @testable import BlurDiscriminatorKit
 
 
@@ -22,7 +23,7 @@ class BlurDiscriminatorLoadingTests: XCTestCase {
             self.observation = observation
         }
 
-        func predict(input: CGImage) throws -> BlurObservation {
+        func predict(input: CGImage, orientation: CGImagePropertyOrientation) throws -> BlurObservation {
             return observation
         }
     }
@@ -85,6 +86,24 @@ class BlurDiscriminatorLoadingTests: XCTestCase {
 
         XCTAssertEqual(recorder.loadCount, 2, "a failed load should not be cached")
         XCTAssertEqual(recovered.grayscaledPixels, observation.grayscaledPixels)
+    }
+
+
+    func test_prepare_loads_the_predictor_ahead_of_predict() async throws {
+        let observation = try XCTUnwrap(Self.makeObservation())
+        let recorder = LoadRecorder()
+        let discriminator = BlurDiscriminator(loadPredictor: {
+            _ = recorder.increment()
+            return PredictorStub(observation: observation)
+        })
+        let input = try XCTUnwrap(Self.makeGrayImage(width: 1, height: 1))
+
+        try await discriminator.prepare()
+        XCTAssertEqual(recorder.loadCount, 1, "prepare should load the predictor")
+
+        try await discriminator.prepare()
+        _ = try await discriminator.predict(input: input)
+        XCTAssertEqual(recorder.loadCount, 1, "prepare and predict should reuse the loaded predictor")
     }
 
 

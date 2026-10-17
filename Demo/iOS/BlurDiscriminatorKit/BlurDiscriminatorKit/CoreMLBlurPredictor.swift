@@ -9,23 +9,31 @@
 //  float map where bright = blurred.
 //
 
-import Accelerate
 import CoreGraphics
 import CoreML
-import Vision
+import Dispatch
+import ImageIO
 
 
 /// Core ML inference engine behind ``BlurDiscriminator``. Kept internal so the framework's public
 /// surface stays limited to ``BlurDiscriminator`` and ``BlurObservation``.
 ///
-/// `@unchecked Sendable`: the only stored property is an immutable `VNCoreMLModel`, which
-/// Vision allows to be shared across threads. (`VNCoreMLModel` itself just isn't annotated.)
+/// `@unchecked Sendable`: all stored properties are immutable, and every prediction runs on one
+/// serial queue, so the model is never used from two threads at once. (`MLModel` itself just isn't
+/// annotated.)
 internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
     private struct MalformedModelError: Error { let reason: String }
 
-    private let visionModel: VNCoreMLModel
+    private let model: MLModel
+    private let inputName: String
+    private let outputName: String
     private let inputWidth: Int
     private let inputHeight: Int
+
+    /// Preprocessing and the Core ML call are synchronous work (tens of milliseconds). Running them
+    /// here instead of inline keeps them off Swift concurrency's small cooperative thread pool,
+    /// which must never be blocked; being serial, it also runs predictions one at a time.
+    private let queue = DispatchQueue(label: "dev.syjdev.BlurDiscriminatorKit.inference", qos: .userInitiated)
 
     /// Loads the compiled model that ships in this framework's bundle.
     ///
@@ -41,47 +49,64 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
         do {
             let segmentation = try await BlurSegmentation.load(configuration: configuration)
             let mlModel = segmentation.model
+            let description = mlModel.modelDescription
 
-            // Read the required input size from the model instead of hardcoding 224, so a
-            // reconverted model with a different input size keeps working.
-            guard let imageInput = mlModel.modelDescription.inputDescriptionsByName.values.first(where: { $0.type == .image }),
+            // Read the input/output names and the required input size from the model instead of
+            // hardcoding them, so a reconverted model keeps working.
+            guard let imageInput = description.inputDescriptionsByName.values.first(where: { $0.type == .image }),
                   let constraint = imageInput.imageConstraint else {
                 throw MalformedModelError(reason: "model has no image input constraint")
             }
+            guard let mapOutput = description.outputDescriptionsByName.values.first(where: { $0.type == .multiArray }) else {
+                throw MalformedModelError(reason: "model has no multi-array output")
+            }
+            self.model = mlModel
+            self.inputName = imageInput.name
+            self.outputName = mapOutput.name
             self.inputWidth = constraint.pixelsWide
             self.inputHeight = constraint.pixelsHigh
-            self.visionModel = try VNCoreMLModel(for: mlModel)
         } catch {
             throw BlurDiscriminatorError.modelLoadFailed(underlying: error)
         }
     }
 
-    func predict(input: CGImage) throws -> BlurObservation {
-        // Letterbox to the model's input size so the model sees the same undistorted, black-padded
-        // image it was trained on. Because the padded image already matches the input size, Vision's
-        // `.scaleFill` is an identity resize and introduces no distortion of its own.
-        guard let paddedInput = input.makeAspectFitPadded(width: inputWidth, height: inputHeight) else {
+    func predict(input: CGImage, orientation: CGImagePropertyOrientation) async throws -> BlurObservation {
+        return try await withCheckedThrowingContinuation { continuation in
+            queue.async {
+                continuation.resume(with: Result {
+                    try self.predictSynchronously(input: input, orientation: orientation)
+                })
+            }
+        }
+    }
+
+    private func predictSynchronously(input: CGImage,
+                                      orientation: CGImagePropertyOrientation) throws -> BlurObservation {
+        // Letterbox straight into a pixel buffer of the model's input size, so the model sees the
+        // same undistorted, black-padded image it was trained on and Core ML has nothing left to
+        // resize or convert.
+        guard let paddedInput = input.makeAspectFitPadded(width: inputWidth,
+                                                          height: inputHeight,
+                                                          orientation: orientation) else {
             throw BlurDiscriminatorError.imagePreprocessingFailed
         }
 
-        let request = VNCoreMLRequest(model: visionModel)
-        request.imageCropAndScaleOption = .scaleFill
-
-        let handler = VNImageRequestHandler(cgImage: paddedInput, options: [:])
+        let output: MLFeatureProvider
         do {
-            try handler.perform([request])
+            let features = try MLDictionaryFeatureProvider(dictionary: [inputName: MLFeatureValue(pixelBuffer: paddedInput)])
+            output = try model.prediction(from: features)
         } catch {
             throw BlurDiscriminatorError.inferenceFailed(underlying: error)
         }
 
-        guard let observation = request.results?.first as? VNCoreMLFeatureValueObservation,
-              let multiArray = observation.featureValue.multiArrayValue else {
+        guard let multiArray = output.featureValue(for: outputName)?.multiArrayValue else {
             throw BlurDiscriminatorError.unexpectedOutput
         }
 
+        let displayed = input.orientedSize(orientation)
         return try makeObservation(from: multiArray,
-                                   originalWidth: input.width,
-                                   originalHeight: input.height)
+                                   originalWidth: displayed.width,
+                                   originalHeight: displayed.height)
     }
 
     private func makeObservation(from multiArray: MLMultiArray,
@@ -96,17 +121,14 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
         let outputHeight = shape[1]
         let outputWidth = shape[2]
 
-        let fullPixels = try grayscalePixels(from: multiArray, count: outputWidth * outputHeight)
-
-        // Crop the padded region back out so the blur map matches the original image's aspect ratio.
-        let cropped = BlurMapGeometry.croppedSize(outputWidth: outputWidth,
-                                                  outputHeight: outputHeight,
-                                                  originalWidth: originalWidth,
-                                                  originalHeight: originalHeight)
-        let pixels = BlurMapGeometry.cropTopLeft(fullPixels,
-                                                 sourceWidth: outputWidth,
-                                                 cropWidth: cropped.width,
-                                                 cropHeight: cropped.height)
+        // Only the un-padded region matches the original image's aspect ratio; convert just that.
+        let cropped = BlurMapGeometry.contentSize(sourceWidth: originalWidth,
+                                                  sourceHeight: originalHeight,
+                                                  canvasWidth: outputWidth,
+                                                  canvasHeight: outputHeight)
+        let pixels = try PixelConverter.grayscalePixels(from: multiArray,
+                                                        width: cropped.width,
+                                                        height: cropped.height)
 
         guard let blurMap = BlurMapRenderer.makeBlurMap(grayscaledPixels: pixels,
                                                         width: cropped.width,
@@ -114,49 +136,5 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
             throw BlurDiscriminatorError.unexpectedOutput
         }
         return BlurObservation(blurMap: blurMap, grayscaledPixels: pixels)
-    }
-
-    /// Reads the sigmoid map without the per-element `multiArray[index]`
-    /// subscript, which bridges an NSNumber for every one of the 50k pixels.
-    /// The scoped buffer accessors replace the deprecated `dataPointer` and
-    /// keep the pointer's lifetime bounded to the closure.
-    private func grayscalePixels(from multiArray: MLMultiArray, count: Int) throws -> [UInt8] {
-        switch multiArray.dataType {
-        case .float32:
-            return multiArray.withUnsafeBufferPointer(ofType: Float.self) {
-                PixelConverter.floatToUInt8($0)
-            }
-
-        case .float16:
-            // Widen to Float32 with vImage, then reuse vDSP. (Swift's `Float16`
-            // is unavailable on x86_64, so go through raw bytes + vImage.)
-            let floats = try multiArray.withUnsafeBytes { raw -> [Float] in
-                var floats = [Float](repeating: 0, count: count)
-                var source = vImage_Buffer(data: UnsafeMutableRawPointer(mutating: raw.baseAddress),
-                                           height: 1,
-                                           width: vImagePixelCount(count),
-                                           rowBytes: count * MemoryLayout<UInt16>.stride)
-                let error = floats.withUnsafeMutableBytes { destinationRaw -> vImage_Error in
-                    var destination = vImage_Buffer(data: destinationRaw.baseAddress,
-                                                    height: 1,
-                                                    width: vImagePixelCount(count),
-                                                    rowBytes: count * MemoryLayout<Float>.stride)
-                    return vImageConvert_Planar16FtoPlanarF(&source, &destination, vImage_Flags(kvImageNoFlags))
-                }
-                guard error == kvImageNoError else {
-                    throw BlurDiscriminatorError.unexpectedOutput
-                }
-                return floats
-            }
-            return PixelConverter.floatToUInt8(floats)
-
-        default:
-            // Rare fallback (e.g. .double): slower NSNumber access, but correct.
-            var floats = [Float](repeating: 0, count: count)
-            for index in 0..<count {
-                floats[index] = multiArray[index].floatValue
-            }
-            return PixelConverter.floatToUInt8(floats)
-        }
     }
 }

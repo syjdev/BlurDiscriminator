@@ -8,14 +8,15 @@
 
 import CoreGraphics
 import Foundation
+import ImageIO
 
-/// An error thrown by ``BlurDiscriminator/predict(input:)``.
+/// An error thrown by ``BlurDiscriminator/predict(input:orientation:)``.
 public enum BlurDiscriminatorError: Error {
     /// The Core ML model failed to load from the framework bundle.
     case modelLoadFailed(underlying: Error)
     /// The input image could not be prepared (letterboxed) for the model.
     case imagePreprocessingFailed
-    /// The Vision request failed while running the model.
+    /// The Core ML prediction failed.
     case inferenceFailed(underlying: Error)
     /// The model produced an output the framework does not understand.
     case unexpectedOutput
@@ -24,7 +25,7 @@ public enum BlurDiscriminatorError: Error {
 /// What ``BlurDiscriminator`` needs from its inference engine — a seam for
 /// injecting a test double in place of the Core ML-backed predictor.
 internal protocol BlurPredicting: Sendable {
-    func predict(input: CGImage) throws -> BlurObservation
+    func predict(input: CGImage, orientation: CGImagePropertyOrientation) async throws -> BlurObservation
 }
 
 /// A deep-learning based detector that classifies the clear and blurry regions of an image.
@@ -35,14 +36,17 @@ internal protocol BlurPredicting: Sendable {
 ///
 /// The input image is letterboxed to the model's fixed input size (currently 224×224) internally —
 /// aspect ratio is preserved with black padding — and the resulting blur map is cropped back to the
-/// original image's aspect ratio. Any image size may be passed. `BlurDiscriminator` is an actor:
-/// concurrent calls are serialized by actor isolation, so a single instance is safe to share across
-/// concurrency domains.
+/// original image's aspect ratio. Any image size may be passed. Pass the photo's orientation and the
+/// rotation is applied while sampling — there is no need to redraw the image upright first.
+///
+/// `BlurDiscriminator` is an actor, so a single instance is safe to share across concurrency
+/// domains. Predictions run one at a time on a dedicated queue, never on the caller's thread.
 ///
 /// ```swift
 /// let discriminator = BlurDiscriminator()
+/// try await discriminator.prepare()  // optional: load the model ahead of the first prediction
 ///
-/// let observation = try await discriminator.predict(input: cgImage)
+/// let observation = try await discriminator.predict(input: cgImage, orientation: .right)
 /// imageView.image = UIImage(cgImage: observation.blurMap)
 /// ```
 public actor BlurDiscriminator {
@@ -52,8 +56,8 @@ public actor BlurDiscriminator {
 
     /// Creates a discriminator backed by the bundled Core ML model.
     ///
-    /// Creation is cheap: the model is loaded lazily on the first call to ``predict(input:)``,
-    /// so initializing the discriminator never blocks the calling thread.
+    /// Creation is cheap: the model is loaded lazily on the first call to ``predict(input:orientation:)``
+    /// (or ``prepare()``), so initializing the discriminator never blocks the calling thread.
     public init() {
         self.loadPredictor = { try await CoreMLBlurPredictor() }
     }
@@ -63,18 +67,36 @@ public actor BlurDiscriminator {
         self.loadPredictor = loadPredictor
     }
 
+    /// Loads the Core ML model now instead of on the first ``predict(input:orientation:)``.
+    ///
+    /// Optional: call it early — e.g. when the screen that will run predictions appears — so the
+    /// first prediction doesn't also pay for loading the model. Calling it more than once, or
+    /// concurrently with `predict`, never loads the model twice.
+    ///
+    /// - Throws: ``BlurDiscriminatorError/modelLoadFailed(underlying:)`` if the model could not be
+    ///   loaded. A failed load is not cached, so a later call may retry.
+    public func prepare() async throws {
+        _ = try await loadedPredictor()
+    }
+
     /// Runs blur detection on the given image.
     ///
-    /// The Core ML model is loaded on the first call and cached for subsequent calls.
-    /// Inference is actor-isolated: concurrent calls are executed one at a time, and the
+    /// The Core ML model is loaded on the first call (unless ``prepare()`` already did) and cached
+    /// for subsequent calls. Concurrent calls are executed one at a time on a dedicated queue; the
     /// calling task is suspended (not blocked) until inference completes.
     ///
-    /// - Parameter input: The image to analyze. It is resized to the model input size internally.
-    /// - Returns: A ``BlurObservation`` describing the blur map.
+    /// - Parameters:
+    ///   - input: The image to analyze, as stored (raw pixel order). It is resized to the model
+    ///     input size internally.
+    ///   - orientation: How `input` should be displayed — e.g. the EXIF orientation of a photo, or
+    ///     `UIImage.imageOrientation` converted to `CGImagePropertyOrientation`. Defaults to `.up`.
+    /// - Returns: A ``BlurObservation`` describing the blur map, in the displayed orientation
+    ///   (a `.right` photo yields a portrait blur map).
     /// - Throws: ``BlurDiscriminatorError`` if the model could not be loaded, inference failed,
     ///   or the model produced an unexpected output.
-    public func predict(input: CGImage) async throws -> BlurObservation {
-        return try await loadedPredictor().predict(input: input)
+    public func predict(input: CGImage,
+                        orientation: CGImagePropertyOrientation = .up) async throws -> BlurObservation {
+        return try await loadedPredictor().predict(input: input, orientation: orientation)
     }
 
     /// Returns the cached predictor, loading the model on first use. A single in-flight load

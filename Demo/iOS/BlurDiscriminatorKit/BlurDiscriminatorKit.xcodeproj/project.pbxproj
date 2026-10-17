@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1F3C2D45E6B7A8091B2C3D4 /* ImageProcessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F3C2D45E6B7A8091B2C3D5 /* ImageProcessingTests.swift */; };
 		0A8978422621CC9146B5BCF3 /* CGImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F2E2AF2A0437537333C08A /* CGImage+resize.swift */; };
 		56EBB025FFBC562404E3CD1A /* cc0_misty_river.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D3DD43200685F748A77934D /* cc0_misty_river.jpg */; };
 		6B22DA0DF98A5F3F043C2FB2 /* BlurSegmentation.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 32C2EACCA5B7A4F2C00A54F5 /* BlurSegmentation.mlpackage */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A1F3C2D45E6B7A8091B2C3D5 /* ImageProcessingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageProcessingTests.swift; sourceTree = "<group>"; };
 		27A4C748729C296387CA6A57 /* cc0_cherry_blossom.jpg */ = {isa = PBXFileReference; includeInIndex = 1; path = cc0_cherry_blossom.jpg; sourceTree = "<group>"; };
 		2C4695E27633018BA75A53F2 /* BlurDiscriminatorLoadingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BlurDiscriminatorLoadingTests.swift; sourceTree = "<group>"; };
 		32C2EACCA5B7A4F2C00A54F5 /* BlurSegmentation.mlpackage */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.mlpackage; path = BlurSegmentation.mlpackage; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				DE90DBBB2737B43F0048E41B /* BlurDiscriminatorKitTests.swift */,
 				DE90DBBD2737B43F0048E41B /* Info.plist */,
 				2C4695E27633018BA75A53F2 /* BlurDiscriminatorLoadingTests.swift */,
+				A1F3C2D45E6B7A8091B2C3D5 /* ImageProcessingTests.swift */,
 			);
 			path = BlurDiscriminatorKitTests;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			files = (
 				DE90DBBC2737B43F0048E41B /* BlurDiscriminatorKitTests.swift in Sources */,
 				7B7E6B5BF45BC50981B78C13 /* BlurDiscriminatorLoadingTests.swift in Sources */,
+				A1F3C2D45E6B7A8091B2C3D4 /* ImageProcessingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
