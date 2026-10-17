@@ -42,6 +42,10 @@ class BlurDiscriminatorKitTests: XCTestCase {
 
             let ratio = observation.blurRatio()
             XCTAssert((0...1).contains(ratio), "\(name): blur ratio \(ratio) out of range")
+
+            let timings = observation.timings
+            XCTAssertGreaterThan(timings.inference, .zero, "\(name): inference time not measured")
+            XCTAssertEqual(timings.total, timings.preprocessing + timings.inference + timings.postprocessing)
         }
     }
 

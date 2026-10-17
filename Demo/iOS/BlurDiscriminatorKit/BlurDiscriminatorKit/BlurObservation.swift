@@ -23,9 +23,13 @@ public struct BlurObservation: Sendable {
     /// in row-major order.
     public let grayscaledPixels: [UInt8]
 
-    internal init(blurMap: CGImage, grayscaledPixels: [UInt8]) {
+    /// How long each stage of the prediction took.
+    public let timings: Timings
+
+    internal init(blurMap: CGImage, grayscaledPixels: [UInt8], timings: Timings = .zero) {
         self.blurMap = blurMap
         self.grayscaledPixels = grayscaledPixels
+        self.timings = timings
     }
 
     /// The fraction of pixels considered blurry.
@@ -40,5 +44,27 @@ public struct BlurObservation: Sendable {
     public func blurRatio(threshold: UInt8 = 127) -> Float {
         let numberOfBlur = grayscaledPixels.count { $0 > threshold }
         return Float(numberOfBlur) / Float(grayscaledPixels.count)
+    }
+}
+
+
+extension BlurObservation {
+    /// Wall-clock durations of the stages of one ``BlurDiscriminator/predict(input:orientation:)``
+    /// call, measured on the inference queue.
+    ///
+    /// Model loading, and the time a prediction waits for earlier ones to finish, are not included —
+    /// measure the `predict` call itself to get the end-to-end latency.
+    public struct Timings: Sendable, Equatable {
+        /// Letterboxing the input (orientation, resampling, padding) into the model's input buffer.
+        public let preprocessing: Duration
+        /// The Core ML prediction itself.
+        public let inference: Duration
+        /// Cropping the model output back to the image's aspect ratio and building ``blurMap``.
+        public let postprocessing: Duration
+
+        /// The sum of all stages.
+        public var total: Duration { preprocessing + inference + postprocessing }
+
+        internal static let zero = Timings(preprocessing: .zero, inference: .zero, postprocessing: .zero)
     }
 }

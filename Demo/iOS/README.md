@@ -14,8 +14,9 @@ __Demo/iOS__ is structured as follows. Open `iOS.xcworkspace` to work on both pr
   shipped separately.
 
 - __demo__<br />
-: Simple iOS demo app. It cycles through CC0 sample images and shows each image's blur map, the
-  prediction time and the blur ratio.
+: Simple iOS demo app. Pick one of the CC0 sample images (or a photo from your library) and
+  tap __Run__ to see its blur map, with a breakdown of where the time went — preprocessing, Core ML
+  inference, postprocessing and scheduling overhead.
 
 <br/>
 
@@ -68,6 +69,9 @@ let observation = try await discriminator.predict(input: image.cgImage!,
 
 imageView.image = UIImage(cgImage: observation.blurMap)  // grayscale, brighter = blurrier
 let isBlurry = observation.blurRatio() > 0.5             // fraction of pixels above 127
+
+// Per-stage durations measured inside the framework (Swift `Duration`s).
+print(observation.timings.preprocessing, observation.timings.inference, observation.timings.postprocessing)
 ```
 
 `CGImagePropertyOrientation(_: UIImage.Orientation)` is not part of the SDK; see the small

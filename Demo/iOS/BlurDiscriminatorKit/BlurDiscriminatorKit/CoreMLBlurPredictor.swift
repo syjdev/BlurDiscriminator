@@ -82,6 +82,9 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
 
     private func predictSynchronously(input: CGImage,
                                       orientation: CGImagePropertyOrientation) throws -> BlurObservation {
+        let clock = ContinuousClock()
+        let start = clock.now
+
         // Letterbox straight into a pixel buffer of the model's input size, so the model sees the
         // same undistorted, black-padded image it was trained on and Core ML has nothing left to
         // resize or convert.
@@ -90,6 +93,7 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
                                                           orientation: orientation) else {
             throw BlurDiscriminatorError.imagePreprocessingFailed
         }
+        let preprocessed = clock.now
 
         let output: MLFeatureProvider
         do {
@@ -98,20 +102,25 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
         } catch {
             throw BlurDiscriminatorError.inferenceFailed(underlying: error)
         }
+        let inferred = clock.now
 
         guard let multiArray = output.featureValue(for: outputName)?.multiArrayValue else {
             throw BlurDiscriminatorError.unexpectedOutput
         }
 
         let displayed = input.orientedSize(orientation)
-        return try makeObservation(from: multiArray,
-                                   originalWidth: displayed.width,
-                                   originalHeight: displayed.height)
+        let (blurMap, pixels) = try makeBlurMap(from: multiArray,
+                                                originalWidth: displayed.width,
+                                                originalHeight: displayed.height)
+        let timings = BlurObservation.Timings(preprocessing: preprocessed - start,
+                                              inference: inferred - preprocessed,
+                                              postprocessing: clock.now - inferred)
+        return BlurObservation(blurMap: blurMap, grayscaledPixels: pixels, timings: timings)
     }
 
-    private func makeObservation(from multiArray: MLMultiArray,
-                                 originalWidth: Int,
-                                 originalHeight: Int) throws -> BlurObservation {
+    private func makeBlurMap(from multiArray: MLMultiArray,
+                             originalWidth: Int,
+                             originalHeight: Int) throws -> (CGImage, [UInt8]) {
         // The model outputs a 1xHxWx1 (NHWC) sigmoid map. Take the blur-map size from
         // the actual output tensor instead of hardcoding the model's current 224x224.
         let shape = multiArray.shape.map { $0.intValue }
@@ -135,6 +144,6 @@ internal final class CoreMLBlurPredictor: BlurPredicting, @unchecked Sendable {
                                                         height: cropped.height) else {
             throw BlurDiscriminatorError.unexpectedOutput
         }
-        return BlurObservation(blurMap: blurMap, grayscaledPixels: pixels)
+        return (blurMap, pixels)
     }
 }
