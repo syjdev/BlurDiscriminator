@@ -91,4 +91,4 @@ extension at the bottom of [`demo/ViewController.swift`](demo/ViewController.swi
 - __Code__ — Apache-2.0 (see the repository root [`LICENSE`](../../LICENSE) and [`NOTICE`](../../NOTICE)).
 - __`BlurSegmentation.mlpackage`__ — trained on the CUHK and DUT-DBD datasets;
   __research / non-commercial only__. See [`MODEL_LICENSE.md`](../../MODEL_LICENSE.md).
-- __Sample images__ (`cc0_*`) — CC0 / public domain from Wikimedia Commons. See [`CREDITS.md`](../../CREDITS.md).
+- __Sample images__ (`cc0_*`) — CC0 / public domain from Wikimedia Commons. See the [sample image credits](../../README.md#sample-image-credits).

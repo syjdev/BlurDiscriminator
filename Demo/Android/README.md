@@ -2,10 +2,8 @@
 
 An Android port of the iOS demo, with a near-identical API. It runs the **float**
 TensorFlow Lite model (`blur_segmentation_float.tflite`) to detect blurry regions
-of an image. This is the **same float model** the iOS Core ML path runs (converted
-from the same `saved_model/blur_discriminate_float`), so both platforms produce
-matching blur maps — unlike the uint8 QAT model, whose quantization biases the map
-darker.
+of an image. This is the **same float model** the iOS Core ML path runs, so both platforms
+produce matching blur maps.
 
 ## Modules
 
@@ -57,4 +55,4 @@ Or just open `Demo/Android/` in Android Studio and Run.
 - **`blur_segmentation_float.tflite`** — trained on the CUHK and DUT-DBD datasets;
   **research / non-commercial only**. See root [`MODEL_LICENSE.md`](../../MODEL_LICENSE.md).
 - **Sample images** (`app/src/main/res/drawable/cc0_*`) — CC0 / public domain from
-  Wikimedia Commons. See root [`CREDITS.md`](../../CREDITS.md).
+  Wikimedia Commons. See the root README's [sample image credits](../../README.md#sample-image-credits).

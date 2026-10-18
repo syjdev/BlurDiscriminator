@@ -26,7 +26,7 @@ data class Sample(val title: String, val source: Source) {
     }
 
     companion object {
-        // CC0 sample images (Wikimedia Commons, public domain). See the repository's CREDITS.md.
+        // CC0 sample images (Wikimedia Commons, public domain). See "Sample image credits" in the repository README.
         private val bundledIds = listOf(
             R.drawable.cc0_cherry_blossom,
             R.drawable.cc0_flower_bokeh,

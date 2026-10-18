@@ -1,71 +1,70 @@
 # Model License & Provenance
 
-This document covers the **machine-learning model artifacts** in this
-repository — they are licensed **separately** from the source code.
+This document covers the **machine-learning model artifacts** in this repository. They are
+licensed **separately** from the source code.
 
 | Artifact | Path |
 |---|---|
 | Core ML model (float) | `Demo/iOS/BlurDiscriminatorKit/BlurDiscriminatorKit/BlurSegmentation.mlpackage` |
-| TensorFlow Lite model (uint8 QAT) | `model/blur_segmentation_qat.tflite` |
 | TensorFlow Lite model (float, Android) | `Demo/Android/blurdiscriminatorkit/src/main/assets/blur_segmentation_float.tflite` |
+> The **source code** in this repository is licensed under **Apache-2.0** (see
+> [`LICENSE`](LICENSE)). The Apache-2.0 license does **not** apply to the model artifacts listed
+> above.
 
-> The **source code** in this repository is licensed under **Apache-2.0**
-> (see [`LICENSE`](LICENSE)). The Apache-2.0 license does **not** apply to the
-> model artifacts listed above.
+## Training data
 
-## Provenance
-
-These models were trained on **two** academic datasets, **both** of which are
-distributed for research with **no explicit license granting commercial use**:
+The models were trained on two academic datasets:
 
 1. **CUHK Blur Detection Dataset**
-   (J. Shi, L. Xu, J. Jia, *"Discriminative Blur Detection Features"*, CVPR 2014) —
+   (J. Shi, L. Xu, J. Jia, *"Discriminative Blur Detection Features"*, CVPR 2014)
    <http://www.cse.cuhk.edu.hk/~leojia/projects/dblurdetect/dataset.html>
 2. **DUT-DBD Dataset**
-   (W. Zhao, F. Zhao, D. Wang, H. Lu, *"Defocus Blur Detection via Multi-stream
-   Bottom-Top-Bottom Fully Convolutional Network"*, CVPR 2018) —
-   <http://ice.dlut.edu.cn/ZhaoWenda/BTBCRLNet.html>
+   (W. Zhao, F. Zhao, D. Wang, H. Lu, *"Defocus Blur Detection via Multi-stream Bottom-Top-Bottom
+   Fully Convolutional Network"*, CVPR 2018)
+   <https://openaccess.thecvf.com/content_cvpr_2018/html/Zhao_Defocus_Blur_Detection_CVPR_2018_paper.html>
 
-Because the model derives from both, commercial use requires clearing **both**
-datasets — permission for one alone is not sufficient.
+## Current status: license unclear, non-commercial for now ⚠️
 
-## Current status: NON-COMMERCIAL only ⚠️
+**Neither dataset states a license.** As of October 2026:
 
-As of this writing, **commercial-use rights for the underlying dataset have not
-been secured**, and the dataset page states no explicit license. Other datasets
-from the same lab are marked "cannot be used commercially." Accordingly:
+- The CUHK dataset page describes the data and links the downloads, but gives no license, terms of
+  use or statement about commercial use.
+- The original DUT-DBD project page (`ice.dlut.edu.cn/ZhaoWenda/BTBCRLNet.html`) is no longer
+  reachable, and no license for the dataset has been found elsewhere.
 
-- The model artifacts are provided for **research / non-commercial use only**.
-- **Do not embed these models in a closed-source or commercial application.**
-- Whether trained model weights constitute a derivative work of their training
-  data is a legally unsettled question; this restriction is the conservative,
-  good-faith position and is **not legal advice**.
+Without a license, we can't confirm that commercial use of these datasets, or of models trained on
+them, is allowed. Whether trained model weights are a derivative work of their training data is
+also legally unsettled. Until this is resolved:
 
-## Demo & test images — resolved (now CC0) ✅
+- The model artifacts are offered for **research and non-commercial use only**.
+- **Do not ship them in a commercial or closed-source application.**
+- If you want to use them commercially, **contact the authors of both datasets first.**
+  Permission for one dataset alone is not enough, because the models were trained on both.
 
-Earlier the repository redistributed original **dataset** images (`dut_test_*`,
-`motion*`, `out_of_focus*`) as demo assets and test fixtures. Academic datasets
-generally do not grant redistribution rights, so those have been **removed** and
-replaced with **CC0 / public-domain** images from Wikimedia Commons (no
-attribution required, commercial use allowed). See [`CREDITS.md`](CREDITS.md).
+This is a conservative, good-faith position, **not legal advice**.
 
-The datasets above therefore now affect **only the trained model weights**, not
-the bundled sample images.
+## Making the models commercially usable
 
-> **Note on git history:** the old dataset images still exist in earlier commits.
-> Removing them going forward does not purge them from history — a history rewrite
-> (`git filter-repo` / BFG) is required to remove them completely.
+One of the following must happen first:
 
-## To make the model commercially embeddable
+1. **Get written permission** from the authors of **both** the CUHK and DUT-DBD datasets for
+   commercial use of models trained on them, and record it here (and in `NOTICE`).
+2. **Retrain** the models on data whose license allows commercial use (or on self-collected data),
+   and replace the artifacts above.
 
-One of the following must be resolved **before** shipping the model in a
-commercial product:
+Until then, only the **Apache-2.0 source code** can be reused commercially, not the bundled models.
 
-1. **Obtain written permission / a commercial license** from the authors of
-   **both** the CUHK and DUT-DBD datasets for commercial use of models trained on
-   them, and record it here (and in `NOTICE`).
-2. **Retrain** the model on a dataset whose license permits commercial use (or
-   on self-collected data), and replace the artifacts above.
+## Demo and test images (CC0) ✅
 
-Until then, only the **Apache-2.0-licensed source code** may be reused
-commercially — the bundled model may not.
+The repository used to include original **dataset** images (`dut_test_*`, `motion*`,
+`out_of_focus*`) as demo assets and test fixtures. Academic datasets generally don't grant
+redistribution rights, so those images were **removed** and replaced with **CC0 / public-domain**
+images from Wikimedia Commons. CC0 requires no attribution and allows commercial use. See
+[Sample image credits](README.md#sample-image-credits) in the README.
+
+The datasets above therefore affect **only the trained model weights**, not the bundled sample
+images.
+
+> **Note on git history:** the old dataset images still exist in earlier commits. Removing them
+> going forward does not purge them from history. A history rewrite (`git filter-repo` / BFG) is
+> needed to remove them completely.
