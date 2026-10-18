@@ -1,0 +1,14 @@
+<resources>
+    <color name="accent">#0A84FF</color>
+    <color name="background">#000000</color>
+    <color name="panel_background">#1C1C1E</color>
+    <color name="fill_tertiary">#3D767680</color>
+    <color name="label">#FFFFFF</color>
+    <color name="label_secondary">#99EBEBF5</color>
+    <color name="label_tertiary">#4DEBEBF5</color>
+    <color name="separator">#99545458</color>
+    <color name="error">#FF453A</color>
+    <color name="disabled_stroke">#48484A</color>
+    <color name="button_tint">#400A84FF</color>
+    <color name="button_tint_disabled">#3D787880</color>
+</resources>

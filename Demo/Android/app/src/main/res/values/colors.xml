@@ -1,0 +1,17 @@
+<resources>
+    <color name="ic_launcher_background">#263238</color>
+
+    <!-- iOS system colors, so the demo looks the same on both platforms. Dark variants in values-night. -->
+    <color name="accent">#007AFF</color>                  <!-- systemBlue -->
+    <color name="background">#FFFFFF</color>              <!-- systemBackground -->
+    <color name="panel_background">#F2F2F7</color>        <!-- secondarySystemBackground -->
+    <color name="fill_tertiary">#1F767680</color>         <!-- tertiarySystemFill -->
+    <color name="label">#000000</color>                   <!-- label -->
+    <color name="label_secondary">#993C3C43</color>       <!-- secondaryLabel -->
+    <color name="label_tertiary">#4D3C3C43</color>        <!-- tertiaryLabel -->
+    <color name="separator">#4A3C3C43</color>             <!-- separator -->
+    <color name="error">#FF3B30</color>                   <!-- systemRed -->
+    <color name="disabled_stroke">#C7C7CC</color>         <!-- systemGray3 -->
+    <color name="button_tint">#26007AFF</color>           <!-- tinted button background -->
+    <color name="button_tint_disabled">#1F787880</color>
+</resources>

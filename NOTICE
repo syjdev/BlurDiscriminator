@@ -1,0 +1,23 @@
+BlurDiscriminator
+Copyright 2021 syjdev
+
+This product includes software developed by syjdev.
+
+The source code in this repository is licensed under the Apache License,
+Version 2.0 (see LICENSE).
+
+------------------------------------------------------------------------
+Bundled machine-learning model — SEPARATE TERMS
+------------------------------------------------------------------------
+
+The Core ML model bundled in this repository
+(Demo/iOS/BlurDiscriminatorKit/BlurDiscriminatorKit/BlurSegmentation.mlpackage)
+and the TensorFlow Lite model (model/blur_segmentation_qat.tflite) are NOT
+covered by the Apache-2.0 license above. They were trained on the CUHK Blur
+Detection Dataset (CVPR 2014) and the DUT-DBD Dataset (CVPR 2018), and are
+distributed under separate, more restrictive (non-commercial) terms.
+
+The demo/test sample images bundled in this repository are CC0 / public-domain
+images from Wikimedia Commons (not from the datasets above); see CREDITS.md.
+
+See MODEL_LICENSE.md before using, redistributing, or embedding the model.

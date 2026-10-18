@@ -11,55 +11,41 @@ import BlurDiscriminatorKit
 
 
 class BlurDiscriminatorKitTests: XCTestCase {
-    struct TestData {
-        let name: String
-        let expectedBlurRatio: Float
-    }
-    
-    private let testDatas = [TestData(name: "image_f264_horizontal_fliped.jpg", expectedBlurRatio: 0.75),
-                              TestData(name: "image_f67_origin.jpg", expectedBlurRatio: 0.75),
-                              TestData(name: "image_f477_origin.jpg", expectedBlurRatio: 0.73)]
-    
+    // CC0 sample images (Wikimedia Commons, public domain) bundled as test fixtures.
+    private let imageNames = ["cc0_cherry_blossom.jpg",
+                              "cc0_ant_sunflower.jpg",
+                              "cc0_misty_river.jpg"]
+
     private lazy var bundle: Bundle = {
         return Bundle(for: type(of: self))
     }()
-    private var blurDiscriminator: BlurDiscriminator?
-    
-    
-    override func setUpWithError() throws {
-        guard let modelPath = bundle.path(forResource: "blur_segmentation_quantized", ofType: "tflite")
-        else {
-            fatalError("failed to find `blur_segmentation_quantized.tflite`")
-        }
-        
-        
-        
-        blurDiscriminator = BlurDiscriminator(modelPath: modelPath, numberOfThread: 2)
-    }
 
-    
-    override func tearDownWithError() throws {
-        blurDiscriminator = nil
-    }
+    // The Core ML model ships inside BlurDiscriminatorKit.framework and is loaded
+    // lazily on the first predict, so creating the discriminator is cheap.
+    private let blurDiscriminator = BlurDiscriminator()
 
-    
-    func test_predict_with_images() throws {
-        for testData in testDatas {
-            guard let image = UIImage(named: testData.name, in: bundle, compatibleWith: nil)?.cgImage else {
-                fatalError("failed to find a image, `\(testData.name)`")
-            }
-            
-            guard let observation = blurDiscriminator?.predict(input: image) else {
-                fatalError("failed to predict, image name - `\(testData.name)`")
-            }
-            
-            let blurRatio = observation.blurRatio(threshold: 127)
-            let assertMessage = """
-            Result blurRatio of predict should be similar with expectedBlurRatio.
-            Check this, \(testData.name). result: \(blurRatio), expected: \(testData.expectedBlurRatio)
-            """
 
-            XCTAssert(abs(blurRatio - testData.expectedBlurRatio) < 1, assertMessage)
+    // End-to-end smoke test: the bundled model runs on real images and produces a
+    // well-formed blur map. The exact blur ratio is model-specific, so we assert the
+    // output is valid rather than pinning a magic number.
+    func test_predict_with_images() async throws {
+        for name in imageNames {
+            let image = try XCTUnwrap(UIImage(named: name, in: bundle, compatibleWith: nil)?.cgImage,
+                                      "failed to find image `\(name)`")
+
+            let observation = try await blurDiscriminator.predict(input: image)
+
+            XCTAssertGreaterThan(observation.grayscaledPixels.count, 0, "\(name): empty blur map")
+            XCTAssertEqual(observation.blurMap.width * observation.blurMap.height,
+                           observation.grayscaledPixels.count,
+                           "\(name): blur map size and pixel count disagree")
+
+            let ratio = observation.blurRatio()
+            XCTAssert((0...1).contains(ratio), "\(name): blur ratio \(ratio) out of range")
+
+            let timings = observation.timings
+            XCTAssertGreaterThan(timings.inference, .zero, "\(name): inference time not measured")
+            XCTAssertEqual(timings.total, timings.preprocessing + timings.inference + timings.postprocessing)
         }
     }
 
