@@ -2,6 +2,7 @@
 package dev.syjdev.blurdiscriminatorkit
 
 import android.graphics.Bitmap
+import kotlin.time.Duration
 
 /**
  * The result of running [BlurDiscriminator.predict] on an image.
@@ -14,6 +15,8 @@ class BlurObservation internal constructor(
     val blurMap: Bitmap,
     /** Raw per-pixel blur intensities of [blurMap], `0` (clear)..`255` (blurry), row-major. */
     val grayscaledPixels: ByteArray,
+    /** How long each stage of the prediction took. */
+    val timings: Timings = Timings(Duration.ZERO, Duration.ZERO, Duration.ZERO),
 ) {
     /**
      * The fraction of pixels considered blurry.
@@ -30,5 +33,24 @@ class BlurObservation internal constructor(
             if ((b.toInt() and 0xFF) > threshold) blurry++
         }
         return blurry.toFloat() / grayscaledPixels.size
+    }
+
+    /**
+     * Wall-clock durations of the stages of one [BlurDiscriminator.predict] call, measured on the
+     * inference thread. Mirrors `BlurObservation.Timings` on iOS.
+     *
+     * Model loading, and the time a prediction waits for earlier ones to finish, are not included —
+     * measure the `predict` call itself to get the end-to-end latency.
+     */
+    data class Timings(
+        /** Letterboxing the input (orientation, resampling, padding) into the model's input tensor. */
+        val preprocessing: Duration,
+        /** The TensorFlow Lite interpreter run itself. */
+        val inference: Duration,
+        /** Cropping the model output back to the image's aspect ratio and building [blurMap]. */
+        val postprocessing: Duration,
+    ) {
+        /** The sum of all stages. */
+        val total: Duration get() = preprocessing + inference + postprocessing
     }
 }

@@ -12,14 +12,18 @@ darker.
 - **`blurdiscriminatorkit/`** — Android library (AAR). Public API mirrors the iOS `BlurDiscriminatorKit`:
   - `BlurDiscriminator(context)` — `suspend fun predict(input: Bitmap, orientation: ImageOrientation = UP): BlurObservation`
     (serialized with a `Mutex`, runs on `Dispatchers.Default`, model loaded lazily — mirrors the iOS `actor`).
+    `suspend fun prepare()` loads the model ahead of the first prediction.
   - `ImageOrientation` — the photo's EXIF orientation (`ImageOrientation.fromExif(...)`), mirroring iOS's
     `CGImagePropertyOrientation`. `BitmapFactory` ignores EXIF; pass the orientation and the rotation is
     applied while sampling, and the blur map comes back in the displayed orientation.
-  - `BlurObservation` — `blurMap: Bitmap`, `grayscaledPixels: ByteArray`, `blurRatio(threshold = 127)`.
+  - `BlurObservation` — `blurMap: Bitmap`, `grayscaledPixels: ByteArray`, `blurRatio(threshold = 127)`, and
+    `timings` (preprocessing / inference / postprocessing as `kotlin.time.Duration`).
   - `BlurDiscriminatorException` — `ModelLoadFailed` / `ImagePreprocessingFailed` / `InferenceFailed`.
   - Internals: `TFLiteBlurPredictor` (interpreter), `ImagePreprocessor` (letterbox + bilinear resample), `BlurMap` (crop-back + grayscale).
   - The model ships in `src/main/assets/`.
-- **`app/`** — demo app: cycles through sample images, runs detection, shows the blur map + elapsed time and ratio.
+- **`app/`** — demo app, laid out like the iOS demo: pick one of the CC0 sample images (or a photo
+  from the system photo picker) and tap **Run** to see its blur map, with a breakdown of where the time
+  went — preprocessing, TensorFlow Lite inference, postprocessing and scheduling overhead.
 
 ## Preprocessing parity with iOS
 

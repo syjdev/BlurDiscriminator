@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Where the time of one prediction went: the model itself versus the work around it. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/elapsed_time"
+        android:textAppearance="@style/TextAppearance.BlurDemo.Headline" />
+
+    <include android:id="@+id/preprocessing" layout="@layout/timing_row" />
+    <include android:id="@+id/inference" layout="@layout/timing_row" />
+    <include android:id="@+id/postprocessing" layout="@layout/timing_row" />
+    <include android:id="@+id/other" layout="@layout/timing_row" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/separator" />
+
+    <include android:id="@+id/total" layout="@layout/timing_row" />
+</LinearLayout>

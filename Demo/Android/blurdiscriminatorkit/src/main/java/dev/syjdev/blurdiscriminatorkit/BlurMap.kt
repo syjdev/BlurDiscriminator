@@ -33,19 +33,6 @@ internal object BlurMapGeometry {
         val height = floor(sourceHeight * scale + 0.5).toInt().coerceIn(1, canvasHeight)
         return width to height
     }
-
-    /** Crops the top-left [cropWidth]×[cropHeight] block out of a row-major, [sourceWidth]-wide map. */
-    fun cropTopLeft(pixels: ByteArray, sourceWidth: Int, cropWidth: Int, cropHeight: Int): ByteArray {
-        if (sourceWidth <= 0) return pixels
-        val sourceHeight = pixels.size / sourceWidth
-        if (cropWidth >= sourceWidth && cropHeight >= sourceHeight) return pixels
-
-        val cropped = ByteArray(cropWidth * cropHeight)
-        for (row in 0 until cropHeight) {
-            System.arraycopy(pixels, row * sourceWidth, cropped, row * cropWidth, cropWidth)
-        }
-        return cropped
-    }
 }
 
 /** Builds an 8-bit grayscale [Bitmap] from the model's per-pixel intensities. */

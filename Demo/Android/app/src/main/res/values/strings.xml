@@ -1,9 +1,36 @@
 <resources>
     <string name="app_name">Blur Demo</string>
-    <string name="run">Run blur detection</string>
-    <string name="input_label">Input</string>
-    <string name="output_label">Blur map</string>
-    <string name="idle">Tap “Run” to detect blur.</string>
-    <string name="result_format">elapsed: %1$d ms   blur ratio: %2$.2f</string>
-    <string name="error_format">error: %1$s</string>
+    <string name="title">Blur Discriminator</string>
+    <string name="subtitle">Choose an image, then tap Run to find its blurry regions.</string>
+    <string name="add_photo">Choose from photo library</string>
+    <string name="your_photo">Your photo</string>
+    <string name="photo">Photo</string>
+    <string name="blur_map">Blur Map</string>
+    <string name="blur_map_placeholder">Tap Run to see which regions are out of focus.</string>
+    <string name="pixel_size">%1$d × %2$d px</string>
+    <string name="legend_sharp">Sharp</string>
+    <string name="legend_blurry">Blurry</string>
+    <string name="legend_description">Dark areas are sharp, bright areas are blurry.</string>
+
+    <string name="elapsed_time">Elapsed Time</string>
+    <string name="timing_preprocessing">Preprocessing</string>
+    <string name="timing_preprocessing_detail">Orient, resize and pad to the model input</string>
+    <string name="timing_inference">Model inference</string>
+    <string name="timing_inference_detail">TensorFlow Lite interpreter run</string>
+    <string name="timing_postprocessing">Postprocessing</string>
+    <string name="timing_postprocessing_detail">Crop the output and build the blur map</string>
+    <string name="timing_other">Other</string>
+    <string name="timing_other_detail">Queueing and thread hand-offs</string>
+    <string name="timing_total">Total</string>
+    <string name="timing_value">%1$.2f ms</string>
+    <string name="timing_empty">—</string>
+
+    <string name="run">Run</string>
+    <string name="loading">Loading…</string>
+    <string name="running">Running…</string>
+    <string name="retry_loading">Retry Loading</string>
+
+    <string name="error_model">Couldn\'t load the model: %1$s</string>
+    <string name="error_prediction">Prediction failed: %1$s</string>
+    <string name="error_photo">Couldn\'t load the photo: %1$s</string>
 </resources>

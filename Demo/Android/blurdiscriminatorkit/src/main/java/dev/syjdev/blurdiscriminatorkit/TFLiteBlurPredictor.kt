@@ -7,6 +7,7 @@ import org.tensorflow.lite.Interpreter
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import kotlin.math.round
+import kotlin.time.TimeSource
 
 /**
  * TensorFlow Lite inference engine behind [BlurDiscriminator]. Kept internal so the library's public
@@ -49,7 +50,9 @@ internal class TFLiteBlurPredictor(
     }
 
     fun predict(input: Bitmap, orientation: ImageOrientation): BlurObservation {
+        val start = TimeSource.Monotonic.markNow()
         val inputBuffer = ImagePreprocessor.toLetterboxedFloatRgb(input, inputWidth, inputHeight, orientation)
+        val preprocessed = TimeSource.Monotonic.markNow()
 
         val pixelCount = outputWidth * outputHeight
         val outputBuffer = ByteBuffer
@@ -61,16 +64,7 @@ internal class TFLiteBlurPredictor(
         } catch (t: Throwable) {
             throw BlurDiscriminatorException.InferenceFailed(t)
         }
-
-        // Convert the float sigmoid map [0, 1] to 8-bit grayscale [0, 255] like iOS's vDSP path:
-        // scale, clip, then round half to even (`round` on Float is IEEE rint).
-        outputBuffer.rewind()
-        val floats = outputBuffer.asFloatBuffer()
-        val fullPixels = ByteArray(pixelCount)
-        for (i in 0 until pixelCount) {
-            val value = round((floats.get(i) * 255f).coerceIn(0f, 255f)).toInt()
-            fullPixels[i] = value.toByte()
-        }
+        val inferred = TimeSource.Monotonic.markNow()
 
         // Crop the padded region back out so the blur map matches the displayed image's aspect ratio.
         val displayedWidth = if (orientation.swapsAxes) input.height else input.width
@@ -78,9 +72,28 @@ internal class TFLiteBlurPredictor(
         val (cropWidth, cropHeight) = BlurMapGeometry.contentSize(
             displayedWidth, displayedHeight, outputWidth, outputHeight,
         )
-        val pixels = BlurMapGeometry.cropTopLeft(fullPixels, outputWidth, cropWidth, cropHeight)
+
+        // Convert the float sigmoid map [0, 1] to 8-bit grayscale [0, 255] like iOS's vDSP path:
+        // scale, clip, then round half to even (`round` on Float is IEEE rint). Only the cropped
+        // region is converted, after one bulk copy out of the direct buffer.
+        outputBuffer.rewind()
+        val floats = FloatArray(pixelCount)
+        outputBuffer.asFloatBuffer().get(floats)
+        val pixels = ByteArray(cropWidth * cropHeight)
+        for (row in 0 until cropHeight) {
+            val source = row * outputWidth
+            val destination = row * cropWidth
+            for (column in 0 until cropWidth) {
+                pixels[destination + column] = round((floats[source + column] * 255f).coerceIn(0f, 255f)).toInt().toByte()
+            }
+        }
         val blurMap = BlurMapRenderer.grayscale(pixels, cropWidth, cropHeight)
-        return BlurObservation(blurMap, pixels)
+        val timings = BlurObservation.Timings(
+            preprocessing = preprocessed - start,
+            inference = inferred - preprocessed,
+            postprocessing = inferred.elapsedNow(),
+        )
+        return BlurObservation(blurMap, pixels, timings)
     }
 
     fun close() {

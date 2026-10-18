@@ -29,13 +29,12 @@ internal object ImagePreprocessor {
         readable.getPixels(argb, 0, readable.width, 0, 0, readable.width, readable.height)
 
         val rgb = letterboxRgb(argb, readable.width, readable.height, width, height, orientation)
+        val floats = FloatArray(rgb.size) { (rgb[it].toInt() and 0xFF) / 255f }
         val buffer = ByteBuffer
             .allocateDirect(rgb.size * Float.SIZE_BYTES)
             .order(ByteOrder.nativeOrder())
-        for (value in rgb) {
-            buffer.putFloat((value.toInt() and 0xFF) / 255f)
-        }
-        buffer.rewind()
+        // One bulk copy: a putFloat per value into a direct buffer costs several times more.
+        buffer.asFloatBuffer().put(floats)
         return buffer
     }
 
