@@ -8,3 +8,5 @@
 *.modulemap linguist-vendored
 
 examples/ios/demo/* linguist-vendored=false
+
+docs/** linguist-documentation

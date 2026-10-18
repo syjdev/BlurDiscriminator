@@ -1,11 +1,12 @@
 # PixelBlurDetector
 
-**On-device, pixel-level blur detection for iOS (Core ML) and Android (TensorFlow Lite).**
+**Find the blurry regions of a photo, pixel by pixel, on iOS and Android.**
 
-PixelBlurDetector tells you *where* an image is blurry. Its output is a blur map with one value
-per pixel, not a single score, so you can see which parts of a photo are in focus. It runs on the
-device with a small segmentation model, and the same model produces matching results on both
-platforms.
+PixelBlurDetector gives you a blur map with one value per pixel, so you can see which parts of a
+photo are in focus and which are blurry. When you only need a yes/no answer, `blurRatio()` reduces
+the map to the fraction of blurry pixels. Everything runs on the device with a small
+segmentation model, through Core ML on iOS and TensorFlow Lite on Android, and both platforms
+produce matching results.
 
 <p>
   <img src="https://img.shields.io/badge/iOS-16.2+-0099FF?style=flat&logo=apple" />
@@ -79,8 +80,13 @@ See [`ios/`](ios) for the full API.
 
 ### Android (Kotlin)
 
-> Maven Central distribution is planned. For now, include the
-> [`android/pixel-blur-detector`](android) module from this repository.
+Add the dependency from Maven Central (minSdk 26):
+
+```kotlin
+dependencies {
+    implementation("io.github.syjdev:pixel-blur-detector:3.0.0")
+}
+```
 
 ```kotlin
 import dev.syjdev.pixelblurdetector.PixelBlurDetector
@@ -131,7 +137,7 @@ android/       Android SDK: pixel-blur-detector library (AAR), TFLite model and 
 examples/
 ├── ios/       iOS demo app — open demo/demo.xcodeproj
 └── android/   Android demo app — open in Android Studio
-docs/images/   Images used by this README
+docs/images/   README images and the GitHub social preview (with the scripts that generate it)
 ```
 
 ## Training data

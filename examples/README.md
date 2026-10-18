@@ -29,7 +29,7 @@ cd android
 ```
 
 Requires the Android SDK (platform 35, build-tools 34+) and JDK 17. The app depends on
-`dev.syjdev:pixel-blur-detector`, which Gradle resolves to [`../android`](../android) through a
+`io.github.syjdev:pixel-blur-detector`, which Gradle resolves to [`../android`](../android) through a
 composite build (`includeBuild` in `settings.gradle.kts`).
 
 ## License

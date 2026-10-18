@@ -5,6 +5,16 @@ TensorFlow Lite model (`blur_segmentation_float.tflite`) to detect blurry region
 of an image. This is the **same float model** the iOS Core ML path runs, so both platforms
 produce matching blur maps.
 
+## Installation
+
+Add the dependency from Maven Central (minSdk 26):
+
+```kotlin
+dependencies {
+    implementation("io.github.syjdev:pixel-blur-detector:3.0.0")
+}
+```
+
 ## Module
 
 **`pixel-blur-detector/`** — Android library (AAR). Public API mirrors the iOS `PixelBlurDetectorKit`:
@@ -35,7 +45,7 @@ The model was trained with **letterbox** preprocessing, so the pipeline matches 
 2. **Output** — the 224×224 float32 sigmoid map is scaled to 8-bit and cropped back to the original
    image's aspect ratio (`BlurMapGeometry`) so the blur map isn't distorted.
 
-## Build & test
+## Build, test & publish
 
 Requires the Android SDK (platform 35, build-tools 34+) and JDK 17.
 
@@ -45,9 +55,22 @@ cd android
 # or export ANDROID_HOME=/path/to/Android/sdk
 ./gradlew :pixel-blur-detector:testDebugUnitTest   # run the unit tests
 ./gradlew :pixel-blur-detector:assembleRelease     # build the AAR
+./gradlew :pixel-blur-detector:publishToMavenLocal # install into ~/.m2 to try it from another project
 ```
 
 Or open `android/` in Android Studio.
+
+### Releasing
+
+The version lives in `VERSION_NAME` in [`gradle.properties`](gradle.properties). Pushing a tag
+with the same version (e.g. `3.0.0`) runs
+[`.github/workflows/publish-android.yml`](../.github/workflows/publish-android.yml), which tests the
+library, signs it and uploads it to the Maven Central Portal. The upload is not released
+automatically: review it under **Deployments** on <https://central.sonatype.com> and press
+**Publish**.
+
+To try the upload before tagging, run the workflow by hand from the **Actions** tab
+(**Publish Android SDK › Run workflow**), check that the deployment is validated, then **Drop** it.
 
 ## License
 
