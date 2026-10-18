@@ -7,4 +7,4 @@
 *.md linguist-vendored
 *.modulemap linguist-vendored
 
-Demo/iOS/demo/* linguist-vendored=false
+examples/ios/demo/* linguist-vendored=false

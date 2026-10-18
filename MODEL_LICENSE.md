@@ -5,8 +5,9 @@ licensed **separately** from the source code.
 
 | Artifact | Path |
 |---|---|
-| Core ML model (float) | `Demo/iOS/BlurDiscriminatorKit/BlurDiscriminatorKit/BlurSegmentation.mlpackage` |
-| TensorFlow Lite model (float, Android) | `Demo/Android/blurdiscriminatorkit/src/main/assets/blur_segmentation_float.tflite` |
+| Core ML model (float) | `ios/PixelBlurDetectorKit/BlurSegmentation.mlpackage` |
+| TensorFlow Lite model (float, Android) | `android/pixel-blur-detector/src/main/assets/blur_segmentation_float.tflite` |
+
 > The **source code** in this repository is licensed under **Apache-2.0** (see
 > [`LICENSE`](LICENSE)). The Apache-2.0 license does **not** apply to the model artifacts listed
 > above.

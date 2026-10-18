@@ -1,4 +1,4 @@
-BlurDiscriminator
+PixelBlurDetector
 Copyright 2021 syjdev
 
 This product includes software developed by syjdev.
@@ -11,9 +11,9 @@ Bundled machine-learning model — SEPARATE TERMS
 ------------------------------------------------------------------------
 
 The Core ML model bundled in this repository
-(Demo/iOS/BlurDiscriminatorKit/BlurDiscriminatorKit/BlurSegmentation.mlpackage)
+(ios/PixelBlurDetectorKit/BlurSegmentation.mlpackage)
 and the TensorFlow Lite model
-(Demo/Android/blurdiscriminatorkit/src/main/assets/blur_segmentation_float.tflite) are NOT
+(android/pixel-blur-detector/src/main/assets/blur_segmentation_float.tflite) are NOT
 covered by the Apache-2.0 license above. They were trained on the CUHK Blur
 Detection Dataset (CVPR 2014) and the DUT-DBD Dataset (CVPR 2018), and are
 distributed under separate, more restrictive (non-commercial) terms.

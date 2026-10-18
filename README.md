@@ -1,8 +1,8 @@
-# BlurDiscriminator
+# PixelBlurDetector
 
 **On-device, pixel-level blur detection for iOS (Core ML) and Android (TensorFlow Lite).**
 
-BlurDiscriminator tells you *where* an image is blurry. Its output is a blur map with one value
+PixelBlurDetector tells you *where* an image is blurry. Its output is a blur map with one value
 per pixel, not a single score, so you can see which parts of a photo are in focus. It runs on the
 device with a small segmentation model, and the same model produces matching results on both
 platforms.
@@ -49,39 +49,55 @@ platforms.
 
 ### iOS (Swift)
 
+Add the package with Swift Package Manager. In Xcode, choose **File › Add Package Dependencies…**
+and enter `https://github.com/syjdev/PixelBlurDetector`, or add it to your `Package.swift`:
+
 ```swift
-import BlurDiscriminatorKit
+dependencies: [
+    .package(url: "https://github.com/syjdev/PixelBlurDetector.git", from: "3.0.0"),
+],
+targets: [
+    .target(name: "YourApp", dependencies: [
+        .product(name: "PixelBlurDetectorKit", package: "PixelBlurDetector"),
+    ]),
+]
+```
 
-let discriminator = BlurDiscriminator()          // an actor; share one instance
-try await discriminator.prepare()                // optional: preload the model
+```swift
+import PixelBlurDetectorKit
 
-let observation = try await discriminator.predict(input: cgImage, orientation: .up)
+let detector = PixelBlurDetector()   // an actor; share one instance
+try await detector.prepare()         // optional: preload the model
+
+let observation = try await detector.predict(input: cgImage, orientation: .up)
 
 imageView.image = UIImage(cgImage: observation.blurMap)  // brighter = blurrier
 let isBlurry = observation.blurRatio() > 0.5
 ```
 
-See [`Demo/iOS`](Demo/iOS) to add the framework to your app or to run the demo.
+See [`ios/`](ios) for the full API.
 
 ### Android (Kotlin)
 
+> Maven Central distribution is planned. For now, include the
+> [`android/pixel-blur-detector`](android) module from this repository.
+
 ```kotlin
-import dev.syjdev.blurdiscriminatorkit.BlurDiscriminator
-import dev.syjdev.blurdiscriminatorkit.ImageOrientation
+import dev.syjdev.pixelblurdetector.PixelBlurDetector
+import dev.syjdev.pixelblurdetector.ImageOrientation
 
-val discriminator = BlurDiscriminator(context)   // share one instance
-discriminator.prepare()                          // optional: preload the model
+val detector = PixelBlurDetector(context)   // share one instance
+detector.prepare()                           // optional: preload the model
 
-val observation = discriminator.predict(bitmap, ImageOrientation.fromExif(exifOrientation))
+val observation = detector.predict(bitmap, ImageOrientation.fromExif(exifOrientation))
 
-imageView.setImageBitmap(observation.blurMap)    // brighter = blurrier
+imageView.setImageBitmap(observation.blurMap)  // brighter = blurrier
 val isBlurry = observation.blurRatio() > 0.5f
 ```
 
-See [`Demo/Android`](Demo/Android) for the library module and the demo app.
+See [`android/`](android) for the library module.
 
-> Swift Package Manager and Maven/JitPack distribution are planned. For now, add the framework
-> or module from this repository as described in each platform's README.
+To try the demo apps, see [`examples/`](examples).
 
 ## How it works
 
@@ -93,15 +109,15 @@ image ──► letterbox to 224×224 ──► segmentation model ──► 224
 
 The model was trained with letterbox preprocessing, so both SDKs letterbox the same way. The
 bilinear resampler on Android is a line-by-line port of the iOS one; it does not use `Canvas`
-filtering. See [`Demo/Android/README.md`](Demo/Android/README.md#preprocessing-parity-with-ios)
+filtering. See [`android/README.md`](android/README.md#preprocessing-parity-with-ios)
 for details.
 
 ## Models
 
 | File | Format | Size | Used by |
 |---|---|---|---|
-| `Demo/iOS/BlurDiscriminatorKit/BlurDiscriminatorKit/BlurSegmentation.mlpackage` | Core ML, float | 2.1 MB | iOS SDK |
-| `Demo/Android/blurdiscriminatorkit/src/main/assets/blur_segmentation_float.tflite` | TFLite, float32 | 4.0 MB | Android SDK |
+| `ios/PixelBlurDetectorKit/BlurSegmentation.mlpackage` | Core ML, float | 2.1 MB | iOS SDK |
+| `android/pixel-blur-detector/src/main/assets/blur_segmentation_float.tflite` | TFLite, float32 | 4.0 MB | Android SDK |
 
 Input: `1×224×224×3` float32 RGB in `[0, 1]`. Output: `1×224×224×1` float32 sigmoid, where 1 is
 blurry.
@@ -109,9 +125,13 @@ blurry.
 ## Repository layout
 
 ```
-Demo/
-├── iOS/       BlurDiscriminatorKit (framework + tests) and the demo app — open iOS.xcworkspace
-└── Android/   blurdiscriminatorkit (AAR library + tests) and the demo app — open in Android Studio
+Package.swift  Swift package manifest for the iOS SDK
+ios/           iOS SDK: PixelBlurDetectorKit sources, Core ML model and tests
+android/       Android SDK: pixel-blur-detector library (AAR), TFLite model and tests
+examples/
+├── ios/       iOS demo app — open demo/demo.xcodeproj
+└── android/   Android demo app — open in Android Studio
+docs/images/   Images used by this README
 ```
 
 ## Training data
