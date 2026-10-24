@@ -354,9 +354,8 @@ private struct Sample {
     let title: String
     let image: UIImage
 
-    private static let bundledNames = ["cc0_cherry_blossom", "cc0_flower_bokeh", "cc0_ant_sunflower", "cc0_highway_bokeh",
-                                       "cc0_misty_river", "cc0_street_bokeh", "cc0_morning_coffee", "cc0_love_in_a_cup",
-                                       "cc0_dew_grass", "cc0_panning_gulls", "cc0_clover_closeup", "cc0_icicles"]
+    private static let bundledNames = ["cc0_cherry_blossom", "cc0_flower_bokeh", "cc0_ant_sunflower", "cc0_misty_river",
+                                       "cc0_love_in_a_cup", "cc0_dew_grass", "cc0_clover_closeup", "cc0_icicles"]
 
     static func loadBundled() -> [Sample] {
         bundledNames.map { name in

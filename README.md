@@ -51,15 +51,15 @@ produce matching results.
 ### iOS (Swift)
 
 Add the package with Swift Package Manager. In Xcode, choose **File › Add Package Dependencies…**
-and enter `https://github.com/syjdev/PixelBlurDetector`, or add it to your `Package.swift`:
+and enter `https://github.com/syjdev/PixelBlurDetector-iOS`, or add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/syjdev/PixelBlurDetector.git", from: "3.0.0"),
+    .package(url: "https://github.com/syjdev/PixelBlurDetector-iOS.git", from: "3.0.0"),
 ],
 targets: [
     .target(name: "YourApp", dependencies: [
-        .product(name: "PixelBlurDetectorKit", package: "PixelBlurDetector"),
+        .product(name: "PixelBlurDetectorKit", package: "PixelBlurDetector-iOS"),
     ]),
 ]
 ```
@@ -76,7 +76,7 @@ imageView.image = UIImage(cgImage: observation.blurMap)  // brighter = blurrier
 let isBlurry = observation.blurRatio() > 0.5
 ```
 
-See [`ios/`](ios) for the full API.
+See [PixelBlurDetector-iOS](https://github.com/syjdev/PixelBlurDetector-iOS) for the full API.
 
 ### Android (Kotlin)
 
@@ -101,7 +101,7 @@ imageView.setImageBitmap(observation.blurMap)  // brighter = blurrier
 val isBlurry = observation.blurRatio() > 0.5f
 ```
 
-See [`android/`](android) for the library module.
+See [PixelBlurDetector-Android](https://github.com/syjdev/PixelBlurDetector-Android) for the full API.
 
 To try the demo apps, see [`examples/`](examples).
 
@@ -115,29 +115,38 @@ image ──► letterbox to 224×224 ──► segmentation model ──► 224
 
 The model was trained with letterbox preprocessing, so both SDKs letterbox the same way. The
 bilinear resampler on Android is a line-by-line port of the iOS one; it does not use `Canvas`
-filtering. See [`android/README.md`](android/README.md#preprocessing-parity-with-ios)
+filtering. See
+[Preprocessing parity with iOS](https://github.com/syjdev/PixelBlurDetector-Android#preprocessing-parity-with-ios)
 for details.
 
 ## Models
 
-| File | Format | Size | Used by |
+| File | Format | Size | Shipped in |
 |---|---|---|---|
-| `ios/PixelBlurDetectorKit/BlurSegmentation.mlpackage` | Core ML, float | 2.1 MB | iOS SDK |
-| `android/pixel-blur-detector/src/main/assets/blur_segmentation_float.tflite` | TFLite, float32 | 4.0 MB | Android SDK |
+| `BlurSegmentation.mlpackage` | Core ML, float | 2.1 MB | [PixelBlurDetector-iOS](https://github.com/syjdev/PixelBlurDetector-iOS) |
+| `blur_segmentation_float.tflite` | TFLite, float32 | 4.0 MB | [PixelBlurDetector-Android](https://github.com/syjdev/PixelBlurDetector-Android) |
 
 Input: `1×224×224×3` float32 RGB in `[0, 1]`. Output: `1×224×224×1` float32 sigmoid, where 1 is
 blurry.
 
-## Repository layout
+## Repositories
+
+The SDKs live in their own repositories, so Swift Package Manager and Gradle download only the
+SDK:
+
+| Repository | Contents |
+|---|---|
+| [PixelBlurDetector](https://github.com/syjdev/PixelBlurDetector) (this one) | Overview, demo apps and issues |
+| [PixelBlurDetector-iOS](https://github.com/syjdev/PixelBlurDetector-iOS) | iOS SDK (`PixelBlurDetectorKit`), Swift package |
+| [PixelBlurDetector-Android](https://github.com/syjdev/PixelBlurDetector-Android) | Android SDK (`io.github.syjdev:pixel-blur-detector`), published to Maven Central |
+
+This repository contains:
 
 ```
-Package.swift  Swift package manifest for the iOS SDK
-ios/           iOS SDK: PixelBlurDetectorKit sources, Core ML model and tests
-android/       Android SDK: pixel-blur-detector library (AAR), TFLite model and tests
 examples/
 ├── ios/       iOS demo app — open demo/demo.xcodeproj
 └── android/   Android demo app — open in Android Studio
-docs/images/   README images and the GitHub social preview (with the scripts that generate it)
+docs/images/   README images and the GitHub social preview
 ```
 
 ## Training data
@@ -153,7 +162,7 @@ The model was trained on two research datasets:
 |---|---|
 | Source code (SDKs and demo apps) | **Apache-2.0**. Commercial use is allowed; keep [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE) when redistributing. |
 | Demo and test images (`cc0_*`) | **CC0** (public domain) from Wikimedia Commons, with no restrictions. See [credits](#sample-image-credits). |
-| Bundled models (`.mlpackage`, `.tflite`) | **Unclear; non-commercial for now.** See below. |
+| Models bundled in the SDKs (`.mlpackage`, `.tflite`) | **Unclear; non-commercial for now.** See below. |
 
 The models were trained on the CUHK Blur Detection and DUT-DBD datasets. Neither dataset states a
 license, so we can't confirm that commercial use is allowed. Until that's resolved, the models are
@@ -162,25 +171,22 @@ dataset authors first. Details are in [`MODEL_LICENSE.md`](MODEL_LICENSE.md).
 
 ### Sample image credits
 
-The sample images in the demo apps and tests (`cc0_*`) are CC0 photos from Wikimedia Commons,
-downscaled to 1024 px on the longest side. CC0 needs no attribution; the sources are listed so you
+The sample images in the demo apps, the SDK tests and the image at the top of this README
+(`cc0_*`) are CC0 photos from Wikimedia Commons, downscaled to 1024 px on the longest side. CC0 needs no attribution; the sources are listed so you
 can check where each image came from.
 
 <details>
-<summary>Sources (12 images)</summary>
+<summary>Sources (9 images)</summary>
 
 | File | Source (Wikimedia Commons) |
 |---|---|
 | `cc0_cherry_blossom` | [Brightin Star 35mm f0.95 - Cherry Blossom](https://commons.wikimedia.org/wiki/File:Brightin_Star_35mm_f0.95_-_Cherry_Blossom.jpg) |
 | `cc0_flower_bokeh` | [Beautiful Flower covered in an artistic Bokeh](https://commons.wikimedia.org/wiki/File:Beautiful_Flower_covered_in_an_artistic_Bokeh_(54028221085).jpg) |
 | `cc0_ant_sunflower` | [Ant on sunflower with snail](https://commons.wikimedia.org/wiki/File:Ant_on_sunflower_with_snail.jpg) |
-| `cc0_highway_bokeh` | [Highway Bokeh](https://commons.wikimedia.org/wiki/File:Highway_Bokeh_(49256321736).jpg) |
 | `cc0_misty_river` | [Blurry misty river](https://commons.wikimedia.org/wiki/File:Blurry_misty_river.jpg) |
-| `cc0_street_bokeh` | [Street bokeh (Unsplash)](https://commons.wikimedia.org/wiki/File:Street_bokeh_(Unsplash).jpg) |
-| `cc0_morning_coffee` | [Morning coffee (Unsplash)](https://commons.wikimedia.org/wiki/File:Morning_coffee_(Unsplash).jpg) |
 | `cc0_love_in_a_cup` | [Love in a cup (Unsplash)](https://commons.wikimedia.org/wiki/File:Love_in_a_cup_(Unsplash).jpg) |
 | `cc0_dew_grass` | [Dew on Grass, beautiful greenery](https://commons.wikimedia.org/wiki/File:Dew_on_Grass,_beautiful_greenery.jpg) |
-| `cc0_panning_gulls` | [Panning gulls](https://commons.wikimedia.org/wiki/File:Panning_gulls.jpg) |
+| `cc0_panning_gulls` (README image only) | [Panning gulls](https://commons.wikimedia.org/wiki/File:Panning_gulls.jpg) |
 | `cc0_clover_closeup` | [Trifolium subterraneum close-up](https://commons.wikimedia.org/wiki/File:Trifolium_subterraneum_close-up.jpg) |
 | `cc0_icicles` | [Icicles on a winter morning](https://commons.wikimedia.org/wiki/File:Icicles_on_a_winter_morning_(30982282464).jpg) |
 

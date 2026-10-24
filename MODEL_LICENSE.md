@@ -1,16 +1,16 @@
 # Model License & Provenance
 
-This document covers the **machine-learning model artifacts** in this repository. They are
-licensed **separately** from the source code.
+This document covers the **machine-learning model artifacts** shipped in the PixelBlurDetector
+SDKs, which the demo apps in this repository use. They are licensed **separately** from the
+source code. Each SDK repository has its own copy of this document.
 
-| Artifact | Path |
+| Artifact | Shipped in |
 |---|---|
-| Core ML model (float) | `ios/PixelBlurDetectorKit/BlurSegmentation.mlpackage` |
-| TensorFlow Lite model (float, Android) | `android/pixel-blur-detector/src/main/assets/blur_segmentation_float.tflite` |
+| Core ML model (float), `BlurSegmentation.mlpackage` | [PixelBlurDetector-iOS](https://github.com/syjdev/PixelBlurDetector-iOS) |
+| TensorFlow Lite model (float), `blur_segmentation_float.tflite` | [PixelBlurDetector-Android](https://github.com/syjdev/PixelBlurDetector-Android) |
 
-> The **source code** in this repository is licensed under **Apache-2.0** (see
-> [`LICENSE`](LICENSE)). The Apache-2.0 license does **not** apply to the model artifacts listed
-> above.
+> The **source code** is licensed under **Apache-2.0** (see [`LICENSE`](LICENSE)). The Apache-2.0
+> license does **not** apply to the model artifacts listed above.
 
 ## Training data
 
@@ -51,7 +51,7 @@ One of the following must happen first:
 1. **Get written permission** from the authors of **both** the CUHK and DUT-DBD datasets for
    commercial use of models trained on them, and record it here (and in `NOTICE`).
 2. **Retrain** the models on data whose license allows commercial use (or on self-collected data),
-   and replace the artifacts above.
+   and replace the artifacts above in both SDKs.
 
 Until then, only the **Apache-2.0 source code** can be reused commercially, not the bundled models.
 

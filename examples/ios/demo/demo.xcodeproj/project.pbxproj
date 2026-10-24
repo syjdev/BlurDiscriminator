@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE5A00012F00000000000001 /* PixelBlurDetectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE5A00022F00000000000001 /* PixelBlurDetectorKit */; };
+		DEE95312308D1F8900DA29F1 /* PixelBlurDetectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = DEE95311308D1F8900DA29F1 /* PixelBlurDetectorKit */; };
 		DEEAC5EC269C741400D753CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEAC5EB269C741400D753CA /* AppDelegate.swift */; };
 		DEEAC5EE269C741400D753CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEAC5ED269C741400D753CA /* SceneDelegate.swift */; };
 		DEEAC5F0269C741400D753CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEAC5EF269C741400D753CA /* ViewController.swift */; };
@@ -34,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE5A00012F00000000000001 /* PixelBlurDetectorKit in Frameworks */,
+				DEE95312308D1F8900DA29F1 /* PixelBlurDetectorKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 			);
 			name = demo;
 			packageProductDependencies = (
-				DE5A00022F00000000000001 /* PixelBlurDetectorKit */,
+				DEE95311308D1F8900DA29F1 /* PixelBlurDetectorKit */,
 			);
 			productName = demo;
 			productReference = DEEAC5E8269C741400D753CA /* demo.app */;
@@ -131,7 +131,7 @@
 			);
 			mainGroup = DEEAC5DF269C741400D753CA;
 			packageReferences = (
-				DE5A00032F00000000000001 /* XCLocalSwiftPackageReference "../../.." */,
+				DEE95310308D1F8900DA29F1 /* XCRemoteSwiftPackageReference "PixelBlurDetector-iOS" */,
 			);
 			productRefGroup = DEEAC5E9269C741400D753CA /* Products */;
 			projectDirPath = "";
@@ -393,16 +393,21 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		DE5A00032F00000000000001 /* XCLocalSwiftPackageReference "../../.." */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../..;
+/* Begin XCRemoteSwiftPackageReference section */
+		DEE95310308D1F8900DA29F1 /* XCRemoteSwiftPackageReference "PixelBlurDetector-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/syjdev/PixelBlurDetector-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DE5A00022F00000000000001 /* PixelBlurDetectorKit */ = {
+		DEE95311308D1F8900DA29F1 /* PixelBlurDetectorKit */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = DEE95310308D1F8900DA29F1 /* XCRemoteSwiftPackageReference "PixelBlurDetector-iOS" */;
 			productName = PixelBlurDetectorKit;
 		};
 /* End XCSwiftPackageProductDependency section */

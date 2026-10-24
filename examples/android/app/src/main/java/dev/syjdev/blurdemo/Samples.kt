@@ -31,13 +31,9 @@ data class Sample(val title: String, val source: Source) {
             R.drawable.cc0_cherry_blossom,
             R.drawable.cc0_flower_bokeh,
             R.drawable.cc0_ant_sunflower,
-            R.drawable.cc0_highway_bokeh,
             R.drawable.cc0_misty_river,
-            R.drawable.cc0_street_bokeh,
-            R.drawable.cc0_morning_coffee,
             R.drawable.cc0_love_in_a_cup,
             R.drawable.cc0_dew_grass,
-            R.drawable.cc0_panning_gulls,
             R.drawable.cc0_clover_closeup,
             R.drawable.cc0_icicles,
         )

@@ -22,5 +22,6 @@ dependencyResolutionManagement {
 rootProject.name = "PixelBlurDetectorDemo"
 include(":app")
 
-// Uses the SDK in ../../android the same way an app would use the published artifact.
-includeBuild("../../android")
+// The demo uses the SDK published on Maven Central. To build it against a local checkout of
+// PixelBlurDetector-Android instead, pass -PpixelBlurDetectorSdkPath=<path to the checkout>.
+providers.gradleProperty("pixelBlurDetectorSdkPath").orNull?.let { includeBuild(it) }

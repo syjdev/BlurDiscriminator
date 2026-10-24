@@ -1,0 +1,15 @@
+{
+  "originHash" : "69fc1f2e1266caf1c1c5aa6fc83a9fe97bd252312893294bbf4c0e8cd274f41f",
+  "pins" : [
+    {
+      "identity" : "pixelblurdetector-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/syjdev/PixelBlurDetector-iOS",
+      "state" : {
+        "revision" : "46f2e7ed4beb4d89676710d81547fea837e73b13",
+        "version" : "3.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}
